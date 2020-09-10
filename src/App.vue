@@ -1,32 +1,32 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Games</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view />
+    <search-game />
+    <router-view :key="$route.path" />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import SearchGame from '@/components/game/SearchGame.vue'  ;
 
-#nav {
-  padding: 30px;
+    export default {
+        data() {
+            return {
+                
+            }
+        },
+        components: {
+            SearchGame,
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+        },
     }
-  }
-}
-</style>
+</script>
+
+<style src="@/assets/scss/style.scss" lang="scss"></style>
+
+
+
+
