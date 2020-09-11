@@ -9,7 +9,7 @@
                         <h1>{{item.name}}</h1>
                     </div>
                     <div  class="game-video">
-                        <video class="videos" @mouseenter="ResetVideo()" v-if="item.clip" autoplay muted >
+                        <video class="videos" @mouseenter="ResetVideo()" v-if="item.clip"  loop autoplay muted >
                             <source :src="item.clip.clip" type="video/mp4">
                         </video>
                         <div v-if="!item.clip"  class="game-img" >
@@ -57,12 +57,22 @@
 <style lang="scss" scoped>
 .game-holder{
     border-radius: 20px;
+
+
+    
 }
 
 .game-info{
     background-color: #202020;
     position: relative;
-    overflow: hidden;
+    border-radius: 20px;
+    transition: 0.2s ease-in;
+    &:hover{
+        transform: scale(1.03);
+        transition: 0.2s ease-in;
+        z-index: 10;
+
+    }
     a{
         color: #fff;
         text-decoration: none;
@@ -81,13 +91,14 @@
         img{
             width: 100%;
             object-fit: cover;
+            border-radius: 20px 20px 0 0;
         }
         &:hover{
             opacity: 0;
         }
     }
     .game-desc{
-        height: 100px;
+        height: 110px;
         h1{
             font-size: 1.6em;
         }
@@ -100,6 +111,7 @@
             object-fit: cover;
             width: 100%;
             height: 250px;
+            border-radius: 20px 20px 0 0;
         }
         &:hover{
             opacity: 1;
