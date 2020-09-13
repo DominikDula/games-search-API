@@ -1,7 +1,8 @@
 <template>
-    <div class="game-holder">
-        <div class="game-info" >
-                <router-link :to="{name:'Games',params:{slug:item.slug}}">   
+    <div  class="game-holder">
+        <!-- v-on:mouseenter="isHidden = !isHidden" v-on:mouseleave="isHidden = !isHidden" -->
+        <div   class="game-info" >
+                <router-link :to="{name:'SingleGame',params:{slug:item.slug}}">   
                     <div  class="game-img" >
                         <img :src="item.background_image" alt="">
                     </div>
@@ -15,23 +16,45 @@
                         <div v-if="!item.clip"  class="game-img" >
                             <img :src="item.background_image" alt="">
                         </div>
+                        
                     </div>
+                    <span class="platform-img" >
+                                <img v-for="platform in item.parent_platforms"
+                                :title="platform.platform.slug"
+                                :key="platform.id" 
+                                :src="require(`@/assets/${platform.platform.slug}.svg`)" 
+                                :alt="platform.platform.slug">
+                                
+                    </span>
+                    <span v-if="item.metacritic" 
+                    title="metacritic rating"
+                    :class="ratingColor" 
+                    class="metacritic">{{item.metacritic}} </span>
                 
                 </router-link>
-                <span v-on:click="isHidden = !isHidden"  class="show-more" >Show more...</span>
+                <span @click="isHidden = !isHidden"  class="show-more" >Show more...</span>
                 
                 <div v-if="isHidden" class="more-info">
                     <ul>
-                        <li>Rating: {{item.rating}} </li>
-                        <li>Released: {{item.released}} </li>
-                        <li>Genres: <a v-for="genre in item.genres" :key="genre.id">
-                            {{ genre.name }}
-                        </a> </li>
-                   
+                        <li>
+                            <span class="span-title" >Rating: </span> 
+                            <span>{{item.rating}}</span>
+                        </li>
+                        <li>
+                            <span class="span-title">Released: </span> 
+                            <span>{{item.released}}</span></li>
+                        <li>
+                            <span class="span-title">Genres: </span> 
+                            <span> 
+                                <a href="#" v-for="genre in item.genres.slice(0,3)" :key="genre.id">
+                                    {{ genre.name }},
+                                </a> 
+                            </span>
+                        </li>
                     </ul>
 
                 </div>     
-            </div>
+        </div>
     </div>
 </template>
 
@@ -51,12 +74,23 @@
                
             }
         },
+        computed: {
+			ratingColor() {
+				return {
+					negative: this.item.metacritic > 39,
+					average: this.item.metacritic >= 40 || this.item.metacritic <69,
+					positive: this.item.metacritic >=70,
+				}
+			},
+			
+		}
     }
 </script>
 
 <style lang="scss" scoped>
 .game-holder{
     border-radius: 20px;
+    
 
 
     
@@ -66,7 +100,44 @@
     background-color: #202020;
     position: relative;
     border-radius: 20px;
-    transition: 0.2s ease-in;
+    // transition: 0.2s ease-in;
+    .platform-img  {
+        display: flex;
+        position: absolute;
+        left: 10px;
+        top: 260px;
+        width: 15px;
+
+        img{
+            width: 100%;
+            margin: 0 5px;
+        }
+    }
+    .metacritic{
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        position: absolute;
+        top: 260px;
+        right: 10px;
+    }
+
+    .negative{
+        border: 3px solid #f00;
+        color: #f00;
+    }
+    .average{
+        border: 3px solid #fc3;
+        color: #fc3;
+    }
+    .positive{
+        border: 3px solid #6c3;
+        color: #6c3;
+    }
+
     &:hover{
         transform: scale(1.03);
         transition: 0.2s ease-in;
@@ -80,8 +151,8 @@
     .show-more{
         position: absolute;
         left: 50%;
-        top: 330px;
-        transform: translate(-50%, -50%);
+        top: 350px;
+        transform: translate(-50%, 0%);
         cursor: pointer;
     }
     
@@ -98,9 +169,10 @@
         }
     }
     .game-desc{
-        height: 110px;
+        height: 140px;
         h1{
-            font-size: 1.6em;
+            font-size: 1.5em;
+            margin: 1.8em 0.5em;
         }
     }
     .game-video{    
@@ -121,11 +193,50 @@
 
 .more-info{
     position: absolute;
-    bottom: -75px;
+    bottom: -105px;
     width: 100%;
     z-index: 1;
     background-color: #202020;
     border-radius: 0 0 20px 20px;
+
+    ul{
+            padding: 0 1em;
+            
+            li {
+                list-style: none;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1em;
+                position: relative;
+                
+            }
+
+            span ,.span-title{
+                font-size: 0.9em;
+            }
+            .span-title{
+                color: #ffffff8c;
+            }
+
+            
+
+
+            li::after{
+                width: 100%;
+                content: '';
+                position: absolute;
+                bottom: -6px;
+                left: 0;
+                border-bottom: 1px solid #ffffff42;
+            }
+           
+            a{
+                text-decoration: none;
+                // border-bottom: 1px solid #ffffffa1;
+                font-size: 0.9em;
+            }
+
+        }
 }
 
 

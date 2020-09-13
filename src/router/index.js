@@ -11,20 +11,38 @@ const routes = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
+    path: "/developers",
+    name: "Developers",
+    props:true,
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "developers" */ "../views/Developers.vue")
+  },
+  {
+    path: "/developers/:slug",
+    name: "SingleDeveloper",
+    props:true,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "single-developers" */ "../views/SingleDeveloper.vue")
   },
   {
     path: "/games/:slug",
-    name: "Games",
+    name: "SingleGame",
     props:true,
     component: () =>
-      import(/* webpackChunkName: "games" */ "../views/Games.vue")
+      import(/* webpackChunkName: "games" */ "../views/SingleGame.vue")
+  },
+  {
+    path: "/games",
+    name: "AllGames",
+    props:true,
+    component: () =>
+      import(/* webpackChunkName: "all-games" */ "../views/AllGames.vue")
   },
 ];
 

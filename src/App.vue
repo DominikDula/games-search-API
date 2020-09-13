@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Games</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <the-navigation />
     <search-game />
-    <router-view :key="$route.path" />
+    <transition name="smooth" mode="out-in">
+        <router-view :key="$route.path" />
+    </transition>
   </div>
 </template>
 
 <script>
 import SearchGame from '@/components/game/SearchGame.vue'  ;
+import TheNavigation from '@/components/TheNavigation.vue'  ;
 
     export default {
         data() {
@@ -20,6 +20,7 @@ import SearchGame from '@/components/game/SearchGame.vue'  ;
         },
         components: {
             SearchGame,
+            TheNavigation,
 
         },
     }
