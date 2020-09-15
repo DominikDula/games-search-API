@@ -46,7 +46,29 @@ body{
     opacity: 0;
     transform: translateX(-100%);
   }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition-duration: 0.5s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+  }
+  
+  .fade-enter,
+  .fade-leave-active {
+    opacity: 0
+  }
   
 
 
-  
+  .grid-container{
+    padding: 6em 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1em;
+    grid-auto-rows: minmax(300px, auto);
+    max-width: 1440px;
+    margin: 0 auto;
+
+
+}
