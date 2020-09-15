@@ -3,6 +3,8 @@
       <router-link to="/">Home</router-link>
       <router-link to="/developers">Developers</router-link>
       <router-link to="/games">All games</router-link>
+      <router-link to="/genres">Genres</router-link>
+      <router-link to="/platforms">Platforms</router-link>
     </div>
 </template>
 

@@ -1,6 +1,7 @@
 <template>
-    <div  class="game-holder">
+    <div @mouseenter="ShowOnHover()" @mouseleave="ShowOnHover()"  class="game-holder">
         <!-- v-on:mouseenter="isHidden = !isHidden" v-on:mouseleave="isHidden = !isHidden" -->
+        
         <div   class="game-info" >
                 <router-link :to="{name:'SingleGame',params:{slug:item.slug}}">   
                     <div  class="game-img" >
@@ -16,14 +17,16 @@
                         <div v-if="!item.clip"  class="game-img" >
                             <img :src="item.background_image" alt="">
                         </div>
-                        
                     </div>
                     <span class="platform-img" >
-                                <img v-for="platform in item.parent_platforms"
+                                <!-- <img 
+                                v-for="platform in item.parent_platforms"
                                 :title="platform.platform.slug"
                                 :key="platform.id" 
-                                :src="require(`@/assets/${platform.platform.slug}.svg`)" 
-                                :alt="platform.platform.slug">
+                                :src="require(`@/assets/platform_img/${platform.platform.slug}.svg`)" 
+                                :alt="platform.platform.slug"> -->
+
+                                
                                 
                     </span>
                     <span v-if="item.metacritic" 
@@ -32,7 +35,7 @@
                     class="metacritic">{{item.metacritic}} </span>
                 
                 </router-link>
-                <span @click="isHidden = !isHidden"  class="show-more" >Show more...</span>
+                <span  @click="ShowOnClick()"  class="show-more" >Show more...</span>
                 
                 <div v-if="isHidden" class="more-info">
                     <ul>
@@ -46,9 +49,12 @@
                         <li>
                             <span class="span-title">Genres: </span> 
                             <span> 
-                                <a href="#" v-for="genre in item.genres.slice(0,3)" :key="genre.id">
+                                <router-link :to="{name:'SingleGenre',params:{slug:genre.slug,name:genre.name}}" 
+                                v-for="genre in item.genres.slice(0,3)" 
+                                :key="genre.id">
                                     {{ genre.name }},
-                                </a> 
+                                    
+                                </router-link> 
                             </span>
                         </li>
                     </ul>
@@ -62,28 +68,49 @@
     export default {
         data() {
             return {
-                isHidden: false
+                isHidden: false,                
+                
+ 
             }
         },
         props:['item'],
+
         methods: {
             ResetVideo(){
                 document.querySelectorAll(".videos").forEach(video => {
                     video.currentTime=0
                 })
                
-            }
+            },
+            ShowOnHover(){
+                if(window.innerWidth<665){
+                    return false
+                }
+                this.isHidden = !this.isHidden
+
+            },
+            ShowOnClick(){
+                if(window.innerWidth<665){
+                    this.isHidden = !this.isHidden
+                }
+               
+            },
+            
+            
         },
         computed: {
 			ratingColor() {
 				return {
-					negative: this.item.metacritic > 39,
-					average: this.item.metacritic >= 40 || this.item.metacritic <69,
+					negative: this.item.metacritic <= 39,
+					average: this.item.metacritic >= 40 && this.item.metacritic <=69,
 					positive: this.item.metacritic >=70,
 				}
-			},
+            },
+           
+            
 			
-		}
+        },
+
     }
 </script>
 
@@ -154,6 +181,7 @@
         top: 350px;
         transform: translate(-50%, 0%);
         cursor: pointer;
+        display: none;
     }
     
     .game-img{
@@ -237,6 +265,14 @@
             }
 
         }
+}
+
+@media (max-width: 655px) { 
+    .game-info{
+        .show-more{
+            display: inline;
+        }
+    }
 }
 
 
