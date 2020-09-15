@@ -9,9 +9,19 @@
         
         <div class="single-game-container" v-bind:style="{ backgroundImage: 'url(' + results.background_image_additional + ')' }" >
             <h1>About</h1>
-            <div class="single-game-desc" v-html="results.description"></div>
+            <div class="single-game-desc" >
+                <div v-html="about"></div>
+                <span v-if="boolean && about.length>500" @click="ReadMore()" >read more</span>
+                <span v-if="!boolean && about.length>500" @click="ReadLess()" >read less</span>
+            </div>
+            
             <div class="single-game-detail">
-                <p>Genres:<a v-for="genre in results.genres" :key="genre.id" href="#">{{ genre.name}}</a></p>  
+                <p>Genres:
+                    <router-link 
+                    v-for="genre in results.genres" 
+                    :key="genre.id" 
+                    :to="{name:'SingleGenre',params:{slug:genre.slug,name:genre.name}}">{{ genre.name}}
+                    </router-link></p>  
 
                 <!-- <p>Developers:<a v-for="developer in results.developers" :key="developer.id" href="#">{{ developer.name }}</a></p> -->
 
@@ -25,7 +35,20 @@
             </p>
 
 
-                <p>platforms: <a v-for="platform in results.platforms" :key="platform.id" href="#">{{ platform.platform.name }}</a></p>
+                <p>platforms: 
+                    <!-- <a 
+                    v-for="platform in results.platforms" 
+                    :key="platform.id" 
+                    href="#">
+                    {{ platform.platform.name }}
+                    </a> -->
+                      <router-link 
+                    v-for="platform in results.platforms" 
+                    :key="platform.platform.id" 
+                    :to="{name:'SinglePlatform',params:{id:platform.platform.id,name:platform.platform.name}}">
+                    {{ platform.platform.name }}
+                    </router-link>
+                    </p>
                 <p>Website: <a :href="results.website">{{results.website}}</a></p>
                 <p>Release date: <span>{{results.released}}</span></p> 
             </div>
@@ -43,6 +66,10 @@
         data() {
             return {
                results:'',
+               shortabout:'',
+               longabout:'',
+               about:'',
+               boolean:true,
 
             }
         },
@@ -67,9 +94,20 @@
             let response = await fetch(`https://rawg.io/api/games/${this.slug}`);
             let data = await response.json()
             this.results = data
-            // console.log(data);
+            this.about = data.description.substring(0,550) +'...'
+            this.shortabout = data.description.substring(0,550)
+            this.longabout = data.description
+            console.log(data);
             
             },
+            ReadMore(){
+                this.about =this.longabout
+                this.boolean=false
+            },
+            ReadLess(){
+              this.about = this.shortabout +'...'
+              this.boolean=true
+            }
 
 
 
@@ -166,6 +204,17 @@
     font-size: 1em;
     line-height: 1.5;
 
+}
+span{
+       color: black;
+        margin: 0px 0.3em;
+        padding: 0.3em 1.2em;
+        background: rgb(255 255 255);
+        border-radius: 20px;
+        font-size: 0.8em;
+        text-decoration: none;
+        font-weight: 500;
+        cursor: pointer;
 }
 }
 

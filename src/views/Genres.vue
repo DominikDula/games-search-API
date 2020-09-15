@@ -1,11 +1,11 @@
 <template>
-     <div class="grid-container">
-        <game-info v-for="item in results" :key="item.id" :item="item" />
+    <div class="grid-container">
+        <template-list v-for="item in results" :key="item.id" :item="item" />
     </div>
 </template>
 
 <script>
-import GameInfo from '@/components/game/GameInfo.vue';
+import TemplateList from '@/components/TemplateList.vue';
     export default {
         data() {
             return {
@@ -13,20 +13,22 @@ import GameInfo from '@/components/game/GameInfo.vue';
             }
         },
         components: {
-            GameInfo,
+            TemplateList
         },
         created () {
-            this.getAllGame();
+            this.getGenres();
             
 
         },
         methods: {
 
-            async getAllGame() {
+            async getGenres() {
 
-            let response = await fetch(`https://rawg.io/api/games`);
+            let response = await fetch(`https://api.rawg.io/api/genres`);
             let data = await response.json()
             this.results = data.results
+            // console.log(data);
+            
 
 
             },
@@ -35,8 +37,10 @@ import GameInfo from '@/components/game/GameInfo.vue';
     }
 </script>
 
-
 <style lang="scss" scoped>
+
+
+
 
 
 

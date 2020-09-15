@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h1> Developed by {{$route.params.name}}</h1>
+    <h1>{{$route.params.name}}</h1>
     <div class="grid-container">
         <game-info v-for="item in results.results" :key="item.id" :item="item" />
     </div>
@@ -21,11 +21,11 @@ import GameInfo from '@/components/game/GameInfo.vue';
             GameInfo,
         },
         created () {
-            this.getSingleDeveloper();
+            this.getSingleGenre();
 
             
         },
-   
+
    
         props: {
             slug: {
@@ -34,12 +34,12 @@ import GameInfo from '@/components/game/GameInfo.vue';
             },
         },
         methods: {
-            async getSingleDeveloper() {
+            async getSingleGenre() {
 
-            let response = await fetch(`https://api.rawg.io/api/games?developers=${this.slug}`);
+            let response = await fetch(`https://api.rawg.io/api/games?genres=${this.slug}`);
             let data = await response.json()
             this.results = data
-            // console.log(data);
+            console.log(data);
             
             },
 
@@ -57,7 +57,5 @@ import GameInfo from '@/components/game/GameInfo.vue';
     max-width: 1440px;
     margin: 30px auto 0; 
 }
-
-
 
 </style>
