@@ -15,42 +15,44 @@
                 <span v-if="!boolean && about.length>500" @click="ReadLess()" >read less</span>
             </div>
             
-            <div class="single-game-detail">
-                <p>Genres:
-                    <router-link 
-                    v-for="genre in results.genres" 
-                    :key="genre.id" 
-                    :to="{name:'SingleGenre',params:{slug:genre.slug,name:genre.name}}">{{ genre.name}}
-                    </router-link></p>  
+            <div class="single-game-wrapper">
+                <div class="single-game-detail">
+                    <p>Genres:
+                        <router-link 
+                        v-for="genre in results.genres" 
+                        :key="genre.id" 
+                        :to="{name:'SingleGenre',params:{slug:genre.slug,name:genre.name}}">{{ genre.name}}
+                        </router-link></p>  
 
-                <!-- <p>Developers:<a v-for="developer in results.developers" :key="developer.id" href="#">{{ developer.name }}</a></p> -->
+                    <!-- <p>Developers:<a v-for="developer in results.developers" :key="developer.id" href="#">{{ developer.name }}</a></p> -->
 
-            <p>Developers:
-                <router-link 
-                    v-for="developer in results.developers" 
-                    :key="developer.id" 
-                    :to="{name:'SingleDeveloper',params:{slug:developer.slug,name:developer.name}}">
-                    {{ developer.name }}
-                </router-link>
-            </p>
-
-
-                <p>platforms: 
-                    <!-- <a 
-                    v-for="platform in results.platforms" 
-                    :key="platform.id" 
-                    href="#">
-                    {{ platform.platform.name }}
-                    </a> -->
-                      <router-link 
-                    v-for="platform in results.platforms" 
-                    :key="platform.platform.id" 
-                    :to="{name:'SinglePlatform',params:{id:platform.platform.id,name:platform.platform.name}}">
-                    {{ platform.platform.name }}
-                    </router-link>
+                    <p>Developers:
+                        <router-link 
+                            v-for="developer in results.developers" 
+                            :key="developer.id" 
+                            :to="{name:'SingleDeveloper',params:{slug:developer.slug,name:developer.name}}">
+                            {{ developer.name }}
+                        </router-link>
                     </p>
-                <p>Website: <a :href="results.website">{{results.website}}</a></p>
-                <p>Release date: <span>{{results.released}}</span></p> 
+
+
+                    <p>platforms: 
+                        <!-- <a 
+                        v-for="platform in results.platforms" 
+                        :key="platform.id" 
+                        href="#">
+                        {{ platform.platform.name }}
+                        </a> -->
+                        <router-link 
+                        v-for="platform in results.platforms" 
+                        :key="platform.platform.id" 
+                        :to="{name:'SinglePlatform',params:{id:platform.platform.id,name:platform.platform.name}}">
+                        {{ platform.platform.name }}
+                        </router-link>
+                        </p>
+                    <p>Website: <a :href="results.website">{{results.website}}</a></p>
+                    <p>Release date: <span>{{results.released}}</span></p> 
+                </div>
             </div>
 
             
@@ -218,7 +220,7 @@ span{
 }
 }
 
-.single-game-detail{
+.single-game-wrapper{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -228,12 +230,14 @@ span{
 
 
     p {
+        padding: 0 15em;
 
     a,span{
         color: black;
         margin: 0px 0.3em;
         padding: 0.3em 1.2em;
-        background: rgb(255 255 255);
+        background: white;
+        line-height: 3;
         border-radius: 20px;
         font-size: 0.8em;
         text-decoration: none;

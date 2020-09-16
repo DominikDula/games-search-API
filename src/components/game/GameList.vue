@@ -12,7 +12,7 @@
     
     
     
-   <load-more></load-more>
+   <load-more class="bottom"></load-more>
 </div>
     
 </template>
@@ -67,7 +67,7 @@ import LoadMore from '@/components/LoadMore.vue';
                     return unique;
             },[])
 
-        // console.log(data.results);
+        console.log(data.results);
 
             },
        
@@ -83,10 +83,13 @@ import LoadMore from '@/components/LoadMore.vue';
 <style lang="scss" scoped>
 
 h1{
-    width: 1440px;
+    max-width: 1440px;
     margin: 70px auto 0;
 }
 
+.bottom{
+    padding: 0 0 4em;
+}
 
 
 

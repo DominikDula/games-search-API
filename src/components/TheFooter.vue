@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <div class="footer" >
         
     </div>
 </template>
@@ -21,5 +21,7 @@
     height: 200px;
     background: black;
 }
+
+
 
 </style>

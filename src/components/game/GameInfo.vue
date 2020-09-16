@@ -14,9 +14,14 @@
                         <video class="videos" @mouseenter="ResetVideo()" v-if="item.clip"  loop autoplay muted >
                             <source :src="item.clip.clip" type="video/mp4">
                         </video>
-                        <div v-if="!item.clip"  class="game-img" >
+                        <!-- <div v-if="!item.clip"  class="game-img" >
                             <img :src="item.background_image" alt="">
-                        </div>
+                        </div> -->
+                    </div>
+                    <div    v-if="!item.clip" class="screenshots" >
+                            <img @mouseenter="ImageAnination()"
+                                @mouseleave="StopImageAnimation()" 
+                            :src="item.short_screenshots[iterator].image" alt="">
                     </div>
                     <span class="platform-img" >
                                 <!-- <img 
@@ -65,15 +70,23 @@
 </template>
 
 <script>
+
     export default {
         data() {
             return {
-                isHidden: false,                
+                isHidden: false,   
+                count : -1,
+                iterator:0,
+                imgScreenLength: this.item.short_screenshots.length,  
+                timeout:'',          
                 
  
             }
         },
         props:['item'],
+
+  
+
 
         methods: {
             ResetVideo(){
@@ -95,6 +108,30 @@
                 }
                
             },
+           
+            ImageAnination(){
+                // this.iterator=1
+            
+                if(this.count>=this.imgScreenLength-1){
+                    this.count=-1
+                }
+                this.count++;
+                 this.timeout=   setTimeout(() =>{this.ImageAnination()}, 1000);
+                     this.iterator=this.count
+                     
+
+            },
+             StopImageAnimation(){
+                 this.iterator=0
+                 this.count=-1
+                  clearTimeout(this.timeout)
+                
+            
+            },
+         
+            
+            
+
             
             
         },
@@ -139,7 +176,19 @@
             width: 100%;
             margin: 0 5px;
         }
+        
     }
+
+    .screenshots img{
+        // display: none;
+            width: 100%;
+            height: 250px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+        }
     .metacritic{
         width: 30px;
         height: 30px;
