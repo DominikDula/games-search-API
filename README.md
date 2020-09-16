@@ -1,5 +1,9 @@
 # game-search
 
+### Live Demo( in progress): 
+
+https://rest-countries-api-4dls7t3xp.vercel.app/
+
 ## Project setup
 ```
 npm install
