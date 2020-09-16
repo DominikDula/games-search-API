@@ -2,7 +2,7 @@
 
 ### Live Demo( in progress): 
 
-https://rest-countries-api-4dls7t3xp.vercel.app/
+https://games-search-api-demo-l2du093l5.vercel.app/
 
 ## Project setup
 ```
