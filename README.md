@@ -2,7 +2,7 @@
 
 ### Live Demo( in progress): 
 
-https://games-search-api-demo-l2du093l5.vercel.app/
+https://games-search-api-demo-git-develop.dominikdula.vercel.app/
 
 ## Project setup
 ```
