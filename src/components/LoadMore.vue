@@ -1,7 +1,7 @@
 <template>
     <div class="button">
-        <button @click="showPrevious()" >Previous</button>
-        <button @click="showNext()" >Next</button>
+        <button class="prev" @click="showPrevious()" >Previous</button>
+        <button class="next" @click="showNext()" >Next</button>
     </div>
 </template>
 
@@ -15,9 +15,11 @@
         methods: {
             showNext() {
                 this.$root.$emit('shownext')
+                window.scrollTo({top: 0, behavior: 'smooth'})
             },
             showPrevious() {
                 this.$root.$emit('showprevious')
+                window.scrollTo({top: 0, behavior: 'smooth'})
             },
 
         },

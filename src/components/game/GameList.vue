@@ -1,12 +1,10 @@
 <template>
 <div>
     <h1>New and Trending</h1>
-    <load-more></load-more>
     
     <!-- <div class="grid-container"> -->
-<transition-group class="grid-container" name="fade" mode="out-in">
-        <game-info v-for="item in results" :key="item.id" :item="item" />
-        
+    <transition-group class="grid-container" name="fade" mode="out-in">
+        <game-info v-for="item in results" :key="item.id" :item="item" />  
     </transition-group>    
     <!-- </div> -->
     
@@ -26,6 +24,7 @@ import LoadMore from '@/components/LoadMore.vue';
             return {
                 results:'',
                 pagesize: 1,
+                next:'',
       
             }
         },
@@ -40,6 +39,9 @@ import LoadMore from '@/components/LoadMore.vue';
         },
         mounted () {
             this.$root.$on('shownext', () => {
+                if(this.next === null){
+                     return
+                 }
                 this.pagesize += 1
                 this.getTrendingGame()
             }),
@@ -66,8 +68,9 @@ import LoadMore from '@/components/LoadMore.vue';
     
                     return unique;
             },[])
+            this.next = data.next
 
-        console.log(data.results);
+        // console.log(data);
 
             },
        

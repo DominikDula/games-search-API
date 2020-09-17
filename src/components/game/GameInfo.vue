@@ -14,30 +14,32 @@
                         <video class="videos" @mouseenter="ResetVideo()" v-if="item.clip"  loop autoplay muted >
                             <source :src="item.clip.clip" type="video/mp4">
                         </video>
-                        <!-- <div v-if="!item.clip"  class="game-img" >
+                        <!-- <div v-if="!item.clip "  class="game-img" >
                             <img :src="item.background_image" alt="">
                         </div> -->
                     </div>
-                    <div    v-if="!item.clip" class="screenshots" >
-                            <img @mouseenter="ImageAnination()"
+                    
+                    <div    v-if="!item.clip && imgScreenLength" class="screenshots" >
+                            <img   @mouseenter="ImageAnimation()"
                                 @mouseleave="StopImageAnimation()" 
                             :src="item.short_screenshots[iterator].image" alt="">
                     </div>
-                    <span class="platform-img" >
-                                <!-- <img 
-                                v-for="platform in item.parent_platforms"
-                                :title="platform.platform.slug"
-                                :key="platform.id" 
-                                :src="require(`@/assets/platform_img/${platform.platform.slug}.svg`)" 
-                                :alt="platform.platform.slug"> -->
-
-                                
-                                
-                    </span>
+                   
+                    <div class="platform-img" >
+                        <span v-for="platform in item.parent_platforms.slice(0,7)" :key="platform.id">
+                            <img 
+                            v-if="platformImage.includes(platform.platform.slug)"
+                            :title="platform.platform.slug"
+                            :src="require(`@/assets/platform_img/${platform.platform.slug}.svg`)" 
+                            :alt="platform.platform.slug">
+                        </span>         
+                    </div>
                     <span v-if="item.metacritic" 
-                    title="metacritic rating"
-                    :class="ratingColor" 
-                    class="metacritic">{{item.metacritic}} </span>
+                        title="metacritic rating"
+                        :class="ratingColor" 
+                        class="metacritic">
+                        {{item.metacritic}} %
+                    </span>
                 
                 </router-link>
                 <span  @click="ShowOnClick()"  class="show-more" >Show more...</span>
@@ -78,7 +80,8 @@
                 count : -1,
                 iterator:0,
                 imgScreenLength: this.item.short_screenshots.length,  
-                timeout:'',          
+                timeout:'',       
+                platformImage : ['amiga','android','atari','ios','linux','mac','nintendo','pc','playstation','sega','web','xbox'],  
                 
  
             }
@@ -109,14 +112,14 @@
                
             },
            
-            ImageAnination(){
-                // this.iterator=1
+            ImageAnimation(){
             
-                if(this.count>=this.imgScreenLength-1){
+               if(this.count>=this.imgScreenLength-1){
                     this.count=-1
                 }
+                
                 this.count++;
-                 this.timeout=   setTimeout(() =>{this.ImageAnination()}, 1000);
+                 this.timeout=   setTimeout(() =>{this.ImageAnimation()}, 1000);
                      this.iterator=this.count
                      
 
@@ -170,12 +173,21 @@
         position: absolute;
         left: 10px;
         top: 260px;
-        width: 15px;
 
-        img{
-            width: 100%;
-            margin: 0 5px;
+        span{
+            margin: 0 10px;
+            
+            
+            img{
+                width: 15px;
+                height: 15px;
+            }
         }
+     
+            
+        
+
+        
         
     }
 
@@ -190,15 +202,16 @@
             border-radius: 20px 20px 0 0;
         }
     .metacritic{
-        width: 30px;
-        height: 30px;
+        width: 38px;
+        height: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 50%;
+        border-radius: 30%;
         position: absolute;
-        top: 260px;
+        top: 255px;
         right: 10px;
+        font-size: 0.8em;
     }
 
     .negative{
@@ -311,6 +324,11 @@
                 text-decoration: none;
                 // border-bottom: 1px solid #ffffffa1;
                 font-size: 0.9em;
+            }
+
+             a:hover{
+                color: yellow;
+                border-bottom: 1px solid yellow;
             }
 
         }

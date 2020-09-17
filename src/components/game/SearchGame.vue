@@ -1,6 +1,9 @@
 <template>
     <div class="search">
-        <input v-model="query" placeholder="Search games" type="text">
+        <form @submit.prevent="Search()" action="">
+            <input v-model="query" placeholder="Search games" type="text">
+        </form> 
+        
     </div>
 </template>
 
@@ -9,6 +12,12 @@
         data() {
             return {
                 query:'',
+            }
+        },
+        methods: {
+            Search() {
+                this.$root.$emit('input-query',this.query)
+                this.query = ''
             }
         },
     }
@@ -23,7 +32,9 @@
     max-width: 1440px;
 
     
-
+    form{
+        height: 40px;
+    }
     input{
         position: relative;
         width: 100%;

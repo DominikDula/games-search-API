@@ -17,41 +17,45 @@
             
             <div class="single-game-wrapper">
                 <div class="single-game-detail">
-                    <p>Genres:
+                    <section>
+                        <h2>Genres</h2>
                         <router-link 
                         v-for="genre in results.genres" 
                         :key="genre.id" 
                         :to="{name:'SingleGenre',params:{slug:genre.slug,name:genre.name}}">{{ genre.name}}
-                        </router-link></p>  
+                        </router-link>
+                    </section>  
 
                     <!-- <p>Developers:<a v-for="developer in results.developers" :key="developer.id" href="#">{{ developer.name }}</a></p> -->
 
-                    <p>Developers:
+                    <section>
+                        <h2>Developers</h2>
                         <router-link 
                             v-for="developer in results.developers" 
                             :key="developer.id" 
                             :to="{name:'SingleDeveloper',params:{slug:developer.slug,name:developer.name}}">
                             {{ developer.name }}
                         </router-link>
-                    </p>
+                    </section>
 
 
-                    <p>platforms: 
+                    <section>
                         <!-- <a 
                         v-for="platform in results.platforms" 
                         :key="platform.id" 
                         href="#">
                         {{ platform.platform.name }}
                         </a> -->
+                        <h2>Platforms</h2>
                         <router-link 
                         v-for="platform in results.platforms" 
                         :key="platform.platform.id" 
                         :to="{name:'SinglePlatform',params:{id:platform.platform.id,name:platform.platform.name}}">
                         {{ platform.platform.name }}
                         </router-link>
-                        </p>
-                    <p>Website: <a :href="results.website">{{results.website}}</a></p>
-                    <p>Release date: <span>{{results.released}}</span></p> 
+                    </section>
+                    <section><h2>Website</h2> <a v-if="results.website" :href="results.website">{{results.website}}</a></section>
+                    <section><h2>Release date</h2> <span>{{results.released}}</span></section> 
                 </div>
             </div>
 
@@ -99,7 +103,7 @@
             this.about = data.description.substring(0,550) +'...'
             this.shortabout = data.description.substring(0,550)
             this.longabout = data.description
-            console.log(data);
+            // console.log(data);
             
             },
             ReadMore(){
@@ -156,6 +160,7 @@
     font-size: 2em;
     display: flex;
     justify-content: flex-start;
+    padding: 0 1em;
  
     }
 
@@ -176,7 +181,7 @@
            h1{
             z-index: 1;
             position: absolute;
-            top: 0;
+            top: 10px;
             left: 50px;
         }
 
@@ -197,19 +202,19 @@
 
 
 .single-game-desc{
-    z-index: 5;
-    width: 30%;
+    z-index: 1;
+    width: 50%;
+    margin-top: 3em;
     
  
     ::v-deep p{
     color: rgb(204, 204, 204);
     font-size: 1em;
-    line-height: 1.5;
+    line-height: 1.8;
 
 }
 span{
-       color: black;
-        margin: 0px 0.3em;
+        color: black;
         padding: 0.3em 1.2em;
         background: rgb(255 255 255);
         border-radius: 20px;
@@ -224,34 +229,62 @@ span{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
     z-index: 1;
-    width: 70%;
+    width: 50%;
 
 
-    p {
-        padding: 0 15em;
-
-    a,span{
-        color: black;
-        margin: 0px 0.3em;
-        padding: 0.3em 1.2em;
-        background: white;
-        line-height: 3;
-        border-radius: 20px;
-        font-size: 0.8em;
-        text-decoration: none;
-        font-weight: 500;
-
-    }
-
-
-}
-
+// 
  
 }
 
+.single-game-detail{
+        
+      section{
+          max-width: 70%;
+          margin: 0 auto; 
+      }  
+        a{
+            color:#cccccc;
+            text-decoration: none;
+            margin: 0 5px 0 0;
+            line-height: 1.8;
+            cursor: pointer;
+            
+        }
 
+        a:hover{
+            color: yellow;
+            border-bottom: 1px solid yellow;
+        }
+    }
+        
+
+@media (max-width: 860px){
+
+    .single-game-name{
+        font-size: 1.1em;
+        justify-content: center;
+    }
+    .single-game-container{
+        max-width: 100%;
+        margin: 100px 1em;
+        flex-direction: column;
+    }
+
+   
+    .single-game-desc,.single-game-wrapper{
+        width: 100%;
+    }
+    .single-game-wrapper{
+        margin-top: 2em;
+    }
+    .single-game-detail{
+        section{
+            width: 100%;
+            margin: 0;
+        }
+    }
+}
 
 
    
