@@ -58,16 +58,24 @@
                     <section><h2>Release date</h2> <span>{{results.released}}</span></section> 
                 </div>
             </div>
-
-            
-
-            
         </div>
+
+        <game-screenshots :slug="slug" />
+        <game-video :slug="slug" />
+
+       
+
+
+
+
         
     </div>
 </template>
 
 <script>
+import GameScreenshots from '@/components/game/GameScreenshots.vue';
+import GameVideo from '@/components/game/GameVideo.vue';
+
     export default {
         data() {
             return {
@@ -78,6 +86,10 @@
                boolean:true,
 
             }
+        },
+        components: {
+            GameScreenshots,
+            GameVideo,
         },
         created () {
             this.getSingleGame();
@@ -103,7 +115,7 @@
             this.about = data.description.substring(0,550) +'...'
             this.shortabout = data.description.substring(0,550)
             this.longabout = data.description
-            // console.log(data);
+            console.log(data);
             
             },
             ReadMore(){

@@ -20,4 +20,10 @@
 
 <style lang="scss" scoped>
 
+@media( max-width:500px) {
+    #nav a{
+        font-size: 0.8em;
+    }
+}
+
 </style>

@@ -28,7 +28,7 @@
 .search{
     width: 80%;
     height: 40px;
-    margin: 0 auto;
+    margin: 3em auto 0;
     max-width: 1440px;
 
     
