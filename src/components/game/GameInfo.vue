@@ -154,7 +154,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .game-holder{
     border-radius: 20px;
     
@@ -340,6 +340,7 @@
             display: inline;
         }
     }
+    
 }
 
 

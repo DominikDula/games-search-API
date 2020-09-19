@@ -12,9 +12,7 @@
             <img class="image-overlay" @click="ShowImage"  v-for="image in results" :key="image.id" :src="image.image">
         </div>
 
-        </div>
-        
-        
+        </div>  
     </div>
 </div>
     

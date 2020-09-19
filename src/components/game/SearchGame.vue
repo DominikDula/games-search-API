@@ -48,12 +48,12 @@
         color:rgb(212, 207, 207);
         transition: 0.2s ease-in-out;
 
-        &:hover{
+        &:hover,&:focus{
             background-color: rgb(255 255 255 / 100%);
             transition: 0.2s ease-in-out;
             color: black;
         }
-         &:hover::placeholder{
+         &:hover::placeholder,&:focus::placeholder{
             color: black;
         }
         &::placeholder{

@@ -3,7 +3,7 @@
     <h1>New and Trending</h1>
     
     <!-- <div class="grid-container"> -->
-    <transition-group class="grid-container" name="fade" mode="out-in">
+    <transition-group tag="div" class="grid-container" name="fade" mode="out-in">
         <game-info v-for="item in results" :key="item.id" :item="item" />  
     </transition-group>    
     <!-- </div> -->

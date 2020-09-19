@@ -48,4 +48,12 @@
     }
 }
 
+@media (max-width: 650px){
+    .game-video{
+        ::v-deep iframe{
+            height: 250px;
+        }
+    }
+}
+
 </style>

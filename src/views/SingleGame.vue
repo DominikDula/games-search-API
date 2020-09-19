@@ -62,6 +62,7 @@
 
         <game-screenshots :slug="slug" />
         <game-video :slug="slug" />
+        <similar-games :slug="slug" :name="results.name" />
 
        
 
@@ -75,6 +76,7 @@
 <script>
 import GameScreenshots from '@/components/game/GameScreenshots.vue';
 import GameVideo from '@/components/game/GameVideo.vue';
+import SimilarGames from '@/components/game/SimilarGames.vue';
 
     export default {
         data() {
@@ -90,6 +92,7 @@ import GameVideo from '@/components/game/GameVideo.vue';
         components: {
             GameScreenshots,
             GameVideo,
+            SimilarGames,
         },
         created () {
             this.getSingleGame();
@@ -276,11 +279,18 @@ span{
     .single-game-name{
         font-size: 1.1em;
         justify-content: center;
+        
     }
     .single-game-container{
         max-width: 100%;
         margin: 100px 1em;
         flex-direction: column;
+        padding: 25px;
+
+        h1{
+            left: 25px;
+        }
+        
     }
 
    
