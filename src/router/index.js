@@ -66,6 +66,13 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "single-platform" */ "../views/SinglePlatform.vue")
   },
+  {
+    path: "/search/:query",
+    name: "GlobalSearch",
+    props:true,
+    component: () =>
+      import(/* webpackChunkName: "global-search" */ "../views/GlobalSearch.vue")
+  },
 ];
 
 const router = new VueRouter({

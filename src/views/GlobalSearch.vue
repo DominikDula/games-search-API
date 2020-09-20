@@ -1,14 +1,6 @@
 <template>
 <div>
-
-    <!-- <select @change="getAllGame()" v-model="selected" name="" id="">
-        <option value=""></option>
-        <option v-for="(year,index) in YearGenerator" :key="index+1" :value=" year[0] + ','+ year[1]">
-            {{year[0]}}
-        </option>
-        
-    </select>
-      <h1  v-if="selected">BEST games in {{selected.slice(0,4)}}</h1> -->
+    <h1>You have searched {{query}}</h1>
      <div class="grid-container">
         <game-info v-for="item in results" :key="item.id" :item="item" />
     </div>
@@ -26,8 +18,13 @@ import LoadMore from '@/components/LoadMore.vue';
                 results:'',
                 pagesize: 1,
                 next:'',
-                selected:''
             }
+        },
+         props: {
+            query: {
+                type: String,
+                required:true 
+            },
         },
         components: {
             GameInfo,
@@ -35,11 +32,10 @@ import LoadMore from '@/components/LoadMore.vue';
         },
         created () {
             this.getAllGame();
-            console.log(this.yearArray);
+
     
         },
         mounted () {
-
              this.$root.$on('shownext', () => {
                  if(this.next === null){
                      return
@@ -55,31 +51,19 @@ import LoadMore from '@/components/LoadMore.vue';
                 this.getAllGame()
             })
         },
-        computed: {
-            YearGenerator() {
-                let yearArray=[]
-                let d = new Date()
-                let n = d.getFullYear() +1
-                n = n.toString() 
-                for(let i = 1980;i<=n;i++){
-                    yearArray.push([i-1,i])
- 
-                }
-                 
-                return yearArray.reverse();
-            }
-        },
-        
     
 
         methods: {
 
             async getAllGame() {
 
-            let response = await fetch(`https://rawg.io/api/games?&page=${this.pagesize}&dates=${this.selected}`);
+            let response = await fetch(`https://rawg.io/api/games?search=${this.query}&page=${this.pagesize}`);
             let data = await response.json()
             this.results = data.results
             this.next = data.next
+            // console.log(data.results);
+
+
             },
             
         },
@@ -89,16 +73,14 @@ import LoadMore from '@/components/LoadMore.vue';
 
 <style lang="scss" scoped>
 
-
+h1{
+    max-width: 1440px;
+    display: flex;
+    margin: 2em auto 0;
+}
 
 .bottom{
     padding: 0 0 4em;
-}
-
-select,h1{
-    max-width: 1440px;
-    display: flex;
-    margin: 1em auto 0;
 }
 
 </style>

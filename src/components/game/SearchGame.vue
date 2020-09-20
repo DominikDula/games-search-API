@@ -16,8 +16,13 @@
         },
         methods: {
             Search() {
-                this.$root.$emit('input-query',this.query)
+                if(this.query === ''){
+                    return
+                }
+                this.$router.push({ name: 'GlobalSearch',params: { query: this.query } }).catch(err => {err})
                 this.query = ''
+                
+
             }
         },
     }

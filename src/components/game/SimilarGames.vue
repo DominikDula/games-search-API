@@ -146,6 +146,18 @@ h1{
 }
 
 
+[v-cloak] {
+	display: none;
+}
+
+.fade-enter-active {
+	transition: all 0.2s ease;
+}
+
+.fade-enter {
+	transform: scale(0.9);
+}
+
 
    
     
