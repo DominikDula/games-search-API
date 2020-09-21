@@ -18,7 +18,7 @@
             <div class="single-game-wrapper">
                 <div class="single-game-detail">
                     <section>
-                        <h2>Genres</h2>
+                        <h3>Genres</h3>
                         <router-link 
                         v-for="genre in results.genres" 
                         :key="genre.id" 
@@ -29,7 +29,7 @@
                     <!-- <p>Developers:<a v-for="developer in results.developers" :key="developer.id" href="#">{{ developer.name }}</a></p> -->
 
                     <section>
-                        <h2>Developers</h2>
+                        <h3>Developers</h3>
                         <router-link 
                             v-for="developer in results.developers" 
                             :key="developer.id" 
@@ -40,13 +40,7 @@
 
 
                     <section>
-                        <!-- <a 
-                        v-for="platform in results.platforms" 
-                        :key="platform.id" 
-                        href="#">
-                        {{ platform.platform.name }}
-                        </a> -->
-                        <h2>Platforms</h2>
+                        <h3>Platforms</h3>
                         <router-link 
                         v-for="platform in results.platforms" 
                         :key="platform.platform.id" 
@@ -54,10 +48,40 @@
                         {{ platform.platform.name }}
                         </router-link>
                     </section>
-                    <section><h2>Website</h2> <a v-if="results.website" :href="results.website">{{results.website}}</a></section>
-                    <section><h2>Release date</h2> <span>{{results.released}}</span></section> 
+                    <section>
+                        <h3>Metacritic Score</h3>
+                        <span v-if="results.metacritic" 
+                            title="metacritic rating"
+                            :class="ratingColor" 
+                            class="metacritic">
+                            {{results.metacritic}}%
+                        </span>
+                    </section>
+                    <section>
+                        <h3>Metacritic website</h3>
+                        <a target="_blank" v-if="results.metacritic_url" :href="results.metacritic_url">{{results.metacritic_url}}</a>
+                      
+                    </section>
+                    <section><h3>Website</h3> <a target="_blank" v-if="results.website" :href="results.website">{{results.website}}</a></section>
+                    <section><h3>Release date</h3> <span>{{results.released}}</span></section> 
                 </div>
             </div>
+        </div>
+        <div class="stores-div">
+            <div class="stores-container">
+                <h1>Stores</h1>
+                <div class="stores">
+                    <div class="single-store" 
+                        v-for="store in results.stores" 
+                        :key="store.id"
+                        v-bind:style="{ backgroundImage: 'url(' + store.store.image_background + ')' }">
+                        <h2>{{ store.store.name }}</h2>
+                        <a target="_blank" :href="store.url">Go to Store</a>
+                    </div>
+                </div>
+                
+            </div>
+            
         </div>
 
         <game-screenshots :slug="slug" />
@@ -133,6 +157,15 @@ import SimilarGames from '@/components/game/SimilarGames.vue';
 
 
  
+        },
+        computed: {
+			ratingColor() {
+				return {
+					negative: this.results.metacritic <= 39,
+					average: this.results.metacritic >= 40 && this.results.metacritic <=69,
+					positive: this.results.metacritic >=70,
+				}
+            },	
         },
         
     }
@@ -258,6 +291,18 @@ span{
           max-width: 70%;
           margin: 0 auto; 
       }  
+      h3{
+          margin: 1em 0;
+          padding: 0;
+      }
+      .metacritic{
+            width: 40px;
+            height: 40px;
+            display: flex;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+      }
         a{
             color:#cccccc;
             text-decoration: none;
@@ -272,6 +317,69 @@ span{
             border-bottom: 1px solid yellow;
         }
     }
+
+.stores-div{
+    max-width: 1440px;
+    margin: 0 auto;
+    // background: rgb(41, 41, 41);
+
+    .stores-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stores{
+        width: 50%;
+        // background: red;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .single-store{
+        position: relative;
+        height: 150px;
+        margin: 0.6em;
+        background-size: cover;
+        background-repeat: no-repeat;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 15px;
+        overflow: hidden;
+        
+   
+
+        a{
+            color: white;
+            padding: 0.5em;
+            border-radius: 20px;
+            text-decoration: none;
+            background: #ff0000b0;
+        }
+
+    
+        
+    }
+
+    .single-store::after{
+        content: '';
+        background-color: rgba(0, 0, 0, 0.6);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+
+    }
+
+    .gallery{
+        width: 50%;
+    }
+}
         
 
 @media (max-width: 860px){

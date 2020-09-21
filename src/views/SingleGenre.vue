@@ -1,10 +1,14 @@
 <template>
 <div>
-    <h1>{{$route.params.name}}</h1>
-    <div class="grid-container">
-        <game-info v-for="item in results.results" :key="item.id" :item="item" />
+    <div class="platform">
+        <h1>{{info.name}}</h1>
+        <article v-if="info.description" v-bind:style="{ backgroundImage: 'url(' + info.image_background + ')' }" v-html="info.description"></article>
     </div>
+        <div class="grid-container">
+            <game-info v-for="item in results.results" :key="item.id" :item="item" />
+        </div>
 </div>
+
 
 </template>
 
@@ -14,6 +18,7 @@ import GameInfo from '@/components/game/GameInfo.vue';
         data() {
             return {
                results:'',
+               info:''
 
             }
         },
@@ -22,6 +27,7 @@ import GameInfo from '@/components/game/GameInfo.vue';
         },
         created () {
             this.getSingleGenre();
+            this.getGenreInfo();
 
             
         },
@@ -42,6 +48,13 @@ import GameInfo from '@/components/game/GameInfo.vue';
             console.log(data);
             
             },
+            async getGenreInfo() {
+
+            let response = await fetch(`https://api.rawg.io/api/genres/${this.slug}`);
+            let data = await response.json()
+            this.info = data
+            
+            },
 
 
 
@@ -52,6 +65,53 @@ import GameInfo from '@/components/game/GameInfo.vue';
 </script>
 
 <style lang="scss" scoped>
+.platform{
+    max-width: 1440px;
+    position: relative;
+    margin: 2em auto 0;
+
+     h1{
+            position: absolute;
+            top: 0;
+            left: 50px;
+            z-index: 2;
+        }
+}
+          
+
+article{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    max-width: 1440px;
+    margin: 0 auto;
+    line-height: 1.3;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 0;
+    border-radius: 15px;
+    z-index: 1;
+    overflow: hidden;
+    min-height: 400px;
+    line-height: 2;
+
+  ::v-deep  p{
+        margin-top: 3em;
+        padding: 3em;
+    }
+}
+
+article::after{
+    content: '';
+    background-color: rgba(0, 0, 0, 0.85);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
 
  h1{
     max-width: 1440px;

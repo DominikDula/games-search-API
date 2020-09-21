@@ -38,7 +38,7 @@
                         title="metacritic rating"
                         :class="ratingColor" 
                         class="metacritic">
-                        {{item.metacritic}} %
+                        {{item.metacritic}}%
                     </span>
                 
                 </router-link>
@@ -214,18 +214,7 @@
         font-size: 0.8em;
     }
 
-    .negative{
-        border: 3px solid #f00;
-        color: #f00;
-    }
-    .average{
-        border: 3px solid #fc3;
-        color: #fc3;
-    }
-    .positive{
-        border: 3px solid #6c3;
-        color: #6c3;
-    }
+ 
 
     &:hover{
         transform: scale(1.03);

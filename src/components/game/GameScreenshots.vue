@@ -1,5 +1,6 @@
 <template>
 <div>
+    <h1>Gallery</h1>
     <div class="image-grid">
         <img @click="ShowImage" v-for="image in results" :key="image.id" :src="image.image">
     </div>
@@ -64,18 +65,26 @@
 
 <style lang="scss" scoped>
 
-.image-grid{
+h1{
     max-width: 1440px;
     margin: 0 auto;
+    padding: 2em 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+.image-grid{
+    max-width: 1140px;
+    margin: 0 auto;
     display: grid;
-    grid-gap: 10px;
+    grid-gap: 25px;
     padding: 3em;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     // grid-auto-rows: minmax(300px, auto);
 
     img{
         width: 100%;
-        height: 150px;
+        height: 200px;
         object-fit: cover;
         border-radius: 15px;
         cursor: pointer;
