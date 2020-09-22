@@ -5,6 +5,7 @@
       <router-link to="/games">All games</router-link>
       <router-link to="/genres">Genres</router-link>
       <router-link to="/platforms">Platforms</router-link>
+      <router-link to="/creators">Creators</router-link>
     </div>
 </template>
 
@@ -22,7 +23,7 @@
 
 @media( max-width:500px) {
     #nav a{
-        font-size: 0.8em;
+        font-size: 0.7em;
     }
 }
 

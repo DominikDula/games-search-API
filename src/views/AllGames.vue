@@ -1,14 +1,14 @@
 <template>
 <div>
 
-    <!-- <select @change="getAllGame()" v-model="selected" name="" id="">
-        <option value=""></option>
+    <select @change="getAllGame()" v-model="selected" name="" id="">
+        <option value="">Select Year</option>
         <option v-for="(year,index) in YearGenerator" :key="index+1" :value=" year[0] + ','+ year[1]">
             {{year[0]}}
         </option>
         
     </select>
-      <h1  v-if="selected">BEST games in {{selected.slice(0,4)}}</h1> -->
+      <h1  v-if="selected">Best games in {{selected.slice(0,4)}}</h1>
      <div class="grid-container">
         <game-info v-for="item in results" :key="item.id" :item="item" />
     </div>
@@ -35,7 +35,6 @@ import LoadMore from '@/components/LoadMore.vue';
         },
         created () {
             this.getAllGame();
-            console.log(this.yearArray);
     
         },
         mounted () {
@@ -61,7 +60,7 @@ import LoadMore from '@/components/LoadMore.vue';
                 let d = new Date()
                 let n = d.getFullYear() +1
                 n = n.toString() 
-                for(let i = 1980;i<=n;i++){
+                for(let i = 1973;i<=n;i++){
                     yearArray.push([i-1,i])
  
                 }
@@ -89,16 +88,28 @@ import LoadMore from '@/components/LoadMore.vue';
 
 <style lang="scss" scoped>
 
+select{
+    background-color: #272727;
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 1.2em;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    outline: none;
 
+   
+}
+
+ select,h1{
+        max-width: 1440px;
+        display: flex;
+        margin: 20px auto 0;
+    }
 
 .bottom{
     padding: 0 0 4em;
-}
-
-select,h1{
-    max-width: 1440px;
-    display: flex;
-    margin: 1em auto 0;
 }
 
 </style>

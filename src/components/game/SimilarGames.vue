@@ -89,6 +89,9 @@ import GameInfo from '@/components/game/GameInfo.vue';
         outline: none;
         border: none;
         cursor: pointer;
+        background: #4a4a4a;
+        color: yellow;
+        font-weight: 600;
 
     }
 }

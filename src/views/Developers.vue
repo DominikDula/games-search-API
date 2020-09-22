@@ -15,6 +15,7 @@ import LoadMore from '@/components/LoadMore.vue';
             return {
                 results:'',
                 pagesize:1,
+                next:''
 
             }
         },
@@ -30,11 +31,7 @@ import LoadMore from '@/components/LoadMore.vue';
 
         },
         mounted () {
-                this.$root.$on('input-query', (data) => {
-                this.search = data
-                this.pagesize = 1
-                this.getAllDevelopers()    
-            })
+
              this.$root.$on('shownext', () => {
                  if(this.next === null){
                      return
@@ -57,6 +54,7 @@ import LoadMore from '@/components/LoadMore.vue';
             let response = await fetch(`https://api.rawg.io/api/developers?page_size=20&page=${this.pagesize}`);
             let data = await response.json()
             this.results = data.results
+            this.next = data.next
             // console.log(data);
             
 

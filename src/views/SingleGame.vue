@@ -87,6 +87,15 @@
         <game-screenshots :slug="slug" />
         <game-video :slug="slug" />
         <similar-games :slug="slug" :name="results.name" />
+        <div v-if="creators.length>0" class="game-creators">
+            <h1>Creators</h1>
+        </div>
+        <div v-if="creators.length>0"  class="creator-container">
+            <creators-list v-for="item in creators" :key="item.id" :item="item" />
+        </div>
+        
+        
+
 
        
 
@@ -101,6 +110,7 @@
 import GameScreenshots from '@/components/game/GameScreenshots.vue';
 import GameVideo from '@/components/game/GameVideo.vue';
 import SimilarGames from '@/components/game/SimilarGames.vue';
+import CreatorsList from '@/components/creators/CreatorsList.vue';
 
     export default {
         data() {
@@ -110,6 +120,7 @@ import SimilarGames from '@/components/game/SimilarGames.vue';
                longabout:'',
                about:'',
                boolean:true,
+               creators:'',
 
             }
         },
@@ -117,9 +128,11 @@ import SimilarGames from '@/components/game/SimilarGames.vue';
             GameScreenshots,
             GameVideo,
             SimilarGames,
+            CreatorsList,
         },
         created () {
-            this.getSingleGame();
+            this.getSingleGame()
+            this.getGameCreatros()
 
             
         },
@@ -142,8 +155,15 @@ import SimilarGames from '@/components/game/SimilarGames.vue';
             this.about = data.description.substring(0,550) +'...'
             this.shortabout = data.description.substring(0,550)
             this.longabout = data.description
-            console.log(data);
+            // console.log(data);
             
+            },
+
+            async getGameCreatros(){
+                let response = await fetch(`https://api.rawg.io/api/games/${this.slug}/development-team`);
+                let data = await response.json();
+                this.creators = data.results
+                console.log(data.results);
             },
             ReadMore(){
                 this.about =this.longabout
@@ -152,7 +172,7 @@ import SimilarGames from '@/components/game/SimilarGames.vue';
             ReadLess(){
               this.about = this.shortabout +'...'
               this.boolean=true
-            }
+            },
 
 
 
@@ -380,6 +400,45 @@ span{
         width: 50%;
     }
 }
+.game-creators{
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+
+ 
+  
+}
+
+.creator-container{
+    padding: 6em 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 1em;
+    grid-auto-rows: minmax(350px, auto);
+    max-width: 1240px;
+    min-height: 300px;
+    margin: 0 auto;
+
+    
+
+    ::v-deep .creator-info{
+
+        min-width: 50%;
+
+        .router-creator .creator-img img{
+            width: 80px;
+            height: 80px;
+        }
+        .creator-desc{
+            font-size: 0.9em;
+        }
+    }
+
+}
+
+
+
         
 
 @media (max-width: 860px){
@@ -391,7 +450,7 @@ span{
     }
     .single-game-container{
         max-width: 100%;
-        margin: 100px 1em;
+        margin: 100px auto;
         flex-direction: column;
         padding: 25px;
 
@@ -415,6 +474,19 @@ span{
         }
     }
 }
+
+@media( max-width:600px) {
+
+.stores-div{
+
+    .stores{
+            width: 100%;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+    }
+    
+}
+
 
 
    

@@ -1,7 +1,7 @@
 <template>
     <div class="search">
         <form @submit.prevent="Search()" action="">
-            <input v-model="query" placeholder="Search games" type="text">
+            <input id="input" v-model="query" placeholder="Search games" type="text">
         </form> 
         
     </div>
@@ -20,6 +20,7 @@
                     return
                 }
                 this.$router.push({ name: 'GlobalSearch',params: { query: this.query } }).catch(err => {err})
+                document.querySelector("#input").blur()
                 this.query = ''
                 
 

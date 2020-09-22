@@ -18,7 +18,7 @@ const routes = [
       import(/* webpackChunkName: "developers" */ "../views/Developers.vue")
   },
   {
-    path: "/developers/:slug/:name",
+    path: "/developers/:slug",
     name: "SingleDeveloper",
     props:true,
     component: () =>
@@ -46,7 +46,7 @@ const routes = [
       import(/* webpackChunkName: "genres" */ "../views/Genres.vue")
   },
   {
-    path: "/genres/:slug/:name",
+    path: "/genres/:slug",
     name: "SingleGenre",
     props:true,
     component: () =>
@@ -65,6 +65,20 @@ const routes = [
     props:true,
     component: () =>
       import(/* webpackChunkName: "single-platform" */ "../views/SinglePlatform.vue")
+  },
+  {
+    path: "/creators",
+    name: "Creators",
+    props:true,
+    component: () =>
+      import(/* webpackChunkName: "creators" */ "../views/Creators.vue")
+  },
+  {
+    path: "/creators/:slug",
+    name: "SingleCreator",
+    props:true,
+    component: () =>
+      import(/* webpackChunkName: "single-creator" */ "../views/SingleCreator.vue")
   },
   {
     path: "/search/:query",

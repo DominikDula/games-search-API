@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h1>You have searched {{query}}</h1>
+    <h1>Results for '{{query}}'</h1>
      <div class="grid-container">
         <game-info v-for="item in results" :key="item.id" :item="item" />
     </div>
@@ -77,6 +77,10 @@ h1{
     max-width: 1440px;
     display: flex;
     margin: 2em auto 0;
+
+    span{
+        color:rgb(194, 0, 0);
+    }
 }
 
 .bottom{

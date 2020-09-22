@@ -19,14 +19,14 @@
                         </div> -->
                     </div>
                     
-                    <div    v-if="!item.clip && imgScreenLength" class="screenshots" >
+                    <div    v-if="!item.clip && item.short_screenshots.length>0" class="screenshots" >
                             <img   @mouseenter="ImageAnimation()"
                                 @mouseleave="StopImageAnimation()" 
                             :src="item.short_screenshots[iterator].image" alt="">
                     </div>
                    
                     <div class="platform-img" >
-                        <span v-for="platform in item.parent_platforms.slice(0,7)" :key="platform.id">
+                        <span  v-for="platform in ImgPlatform" :key="platform.id">
                             <img 
                             v-if="platformImage.includes(platform.platform.slug)"
                             :title="platform.platform.slug"
@@ -52,7 +52,7 @@
                         </li>
                         <li>
                             <span class="span-title">Released: </span> 
-                            <span>{{item.released}}</span></li>
+                            <span v-if="item.released">{{item.released}}</span></li>
                         <li>
                             <span class="span-title">Genres: </span> 
                             <span> 
@@ -79,7 +79,6 @@
                 isHidden: false,   
                 count : -1,
                 iterator:0,
-                imgScreenLength: this.item.short_screenshots.length,  
                 timeout:'',       
                 platformImage : ['amiga','android','atari','ios','linux','mac','nintendo','pc','playstation','sega','web','xbox'],  
                 
@@ -113,8 +112,11 @@
             },
            
             ImageAnimation(){
+                if( this.item.short_screenshots.length<1){
+                    return false
+                }
             
-               if(this.count>=this.imgScreenLength-1){
+               if(this.count>=this.item.short_screenshots.length-1){
                     this.count=-1
                 }
                 
@@ -146,6 +148,12 @@
 					positive: this.item.metacritic >=70,
 				}
             },
+            ImgPlatform(){
+                if(! this.item.parent_platforms){
+                    return false
+                }
+                return this.item.parent_platforms.slice(0,7)
+            }
            
             
 			

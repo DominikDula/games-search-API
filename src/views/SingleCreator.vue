@@ -1,34 +1,37 @@
 <template>
 <div>
-    <h1> Developed by {{info.name}}</h1>
-    <div class="grid-container">
-        <game-info v-for="item in results.results" :key="item.id" :item="item" />
-    </div>
-    <load-more class="bottom"></load-more>
+        <creator-template :info="info" />
+        <div class="grid-container">
+            <game-info v-for="item in results.results" :key="item.id" :item="item" />
+        </div>
+        <load-more class="bottom"></load-more>
 </div>
+
 
 </template>
 
 <script>
 import GameInfo from '@/components/game/GameInfo.vue';
+import CreatorTemplate from '@/components/creators/CreatorTemplate.vue';
 import LoadMore from '@/components/LoadMore.vue';
     export default {
         data() {
             return {
-               results:'',
-               info:'',
-               pagesize:1,
-               next:'',
+                results:'',
+                info:'',
+                pagesize:1,
+                next:'',
 
             }
         },
         components: {
             GameInfo,
+            CreatorTemplate,
             LoadMore,
         },
         created () {
-            this.getSingleDeveloper()
-            this.getDeveloperInfo()
+            this.getSingleCreator();
+            this.getCreatorInfo();
 
             
         },
@@ -39,17 +42,17 @@ import LoadMore from '@/components/LoadMore.vue';
                      return
                  }
                 this.pagesize += 1
-                this.getSingleDeveloper()
+                this.getSingleCreator()
             }),
              this.$root.$on('showprevious', () => {
                  if(this.pagesize<=1){
                      return
                  }
                 this.pagesize -= 1
-                this.getSingleDeveloper()
+                this.getSingleCreator()
             })
         },
-   
+
    
         props: {
             slug: {
@@ -58,23 +61,21 @@ import LoadMore from '@/components/LoadMore.vue';
             },
         },
         methods: {
-            async getSingleDeveloper() {
+            async getSingleCreator() {
 
-            let response = await fetch(`https://api.rawg.io/api/games?developers=${this.slug}&page=${this.pagesize}`);
+            let response = await fetch(`https://api.rawg.io/api/games?creators=${this.slug}&page=${this.pagesize}`);
             let data = await response.json()
             this.results = data
             this.next = data.next
-            // console.log(data);
             
             },
-            async getDeveloperInfo() {
+            async getCreatorInfo() {
 
-            let response = await fetch(`https://api.rawg.io/api/developers/${this.slug}`);
+            let response = await fetch(`https://api.rawg.io/api/creators/${this.slug}`);
             let data = await response.json()
             this.info = data
             
             },
-            
 
 
 
@@ -86,16 +87,9 @@ import LoadMore from '@/components/LoadMore.vue';
 
 <style lang="scss" scoped>
 
-
- h1{
-    max-width: 1440px;
-    margin: 30px auto 0; 
-}
-
 .bottom{
     padding: 0 0 4em;
 }
-
 
 
 

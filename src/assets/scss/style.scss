@@ -73,9 +73,20 @@ body{
 
 
 }
-[v-cloak] {
-	display: none;
+.creator-container{
+    padding: 6em 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1em;
+    grid-auto-rows: minmax(400px, auto);
+    max-width: 1440px;
+    min-height: 100vh;
+    margin: 0 auto;
+
+
+
 }
+
 
 
 /* Enter and leave animations can use different */
