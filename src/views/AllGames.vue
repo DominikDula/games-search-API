@@ -79,6 +79,7 @@ import LoadMore from '@/components/LoadMore.vue';
             let data = await response.json()
             this.results = data.results
             this.next = data.next
+            console.log(data.results);
             },
             
         },
@@ -98,18 +99,30 @@ select{
     border-radius: 15px;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
     outline: none;
+    max-width: 1440px;
+    display: flex;
+    margin: 20px auto 0;
 
    
 }
 
- select,h1{
+h1{
         max-width: 1440px;
         display: flex;
         margin: 20px auto 0;
+        justify-content: center;
     }
 
 .bottom{
     padding: 0 0 4em;
+}
+
+@media (max-width: 655px) { 
+    
+   h1{
+        font-size: 1.3em;
+    }
+    
 }
 
 </style>

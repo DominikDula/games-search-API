@@ -1,27 +1,31 @@
 <template>
-    <div @mouseenter="ShowOnHover()" @mouseleave="ShowOnHover()"  class="game-holder">
-        <!-- v-on:mouseenter="isHidden = !isHidden" v-on:mouseleave="isHidden = !isHidden" -->
-        
-        <div   class="game-info" >
-                <router-link :to="{name:'SingleGame',params:{slug:item.slug}}">   
+
+        <div @mouseenter="ShowOnHover()" @mouseleave="ShowOnHover()"  class="game-holder">
+            <div @mouseenter="PlayVideo" @mouseleave="StopVideo"  class="game-info" >
+
                     <div  class="game-img" >
                         <img :src="item.background_image" alt="">
                     </div>
-                    <div class="game-desc">                
-                        <h1>{{item.name}}</h1>
+
+                    <div class="game-desc">
+                        <router-link :to="{name:'SingleGame',params:{slug:item.slug}}">                 
+                            <h1>{{item.name}}</h1>
+                         </router-link>
                     </div>
-                    <div  class="game-video">
-                        <video class="videos" @mouseenter="ResetVideo()" v-if="item.clip"  loop autoplay muted >
-                            <source :src="item.clip.clip" type="video/mp4">
+
+                    <div @click="PlayClickVideo"  class="game-video">
+                        <video class="videos"  v-if="item.clip"  loop  muted >
+                            <source :src="item.clip.clips['640']" type="video/mp4">
                         </video>
-                        <!-- <div v-if="!item.clip "  class="game-img" >
-                            <img :src="item.background_image" alt="">
-                        </div> -->
+                    </div>
+
+                    <div v-show="showIcon" class="play-icon">
+                        <i class="fas fa-play-circle"></i>
                     </div>
                     
-                    <div    v-if="!item.clip && item.short_screenshots.length>0" class="screenshots" >
-                            <img   @mouseenter="ImageAnimation()"
-                                @mouseleave="StopImageAnimation()" 
+                    <div v-if="!item.clip && item.short_screenshots.length>0" class="screenshots" >
+                        <img @mouseenter="ImageAnimation()"
+                            @mouseleave="StopImageAnimation()" 
                             :src="item.short_screenshots[iterator].image" alt="">
                     </div>
                    
@@ -34,6 +38,7 @@
                             :alt="platform.platform.slug">
                         </span>         
                     </div>
+
                     <span v-if="item.metacritic" 
                         title="metacritic rating"
                         :class="ratingColor" 
@@ -41,7 +46,6 @@
                         {{item.metacritic}}%
                     </span>
                 
-                </router-link>
                 <span  @click="ShowOnClick()"  class="show-more" >Show more...</span>
                 
                 <div v-if="isHidden" class="more-info">
@@ -65,9 +69,9 @@
                             </span>
                         </li>
                     </ul>
+                </div>
 
-                </div>     
-        </div>
+            </div>
     </div>
 </template>
 
@@ -80,21 +84,40 @@
                 count : -1,
                 iterator:0,
                 timeout:'',       
-                platformImage : ['amiga','android','atari','ios','linux','mac','nintendo','pc','playstation','sega','web','xbox'],  
+                platformImage : ['amiga','android','atari','ios','linux','mac','nintendo','pc','playstation','sega','web','xbox'],
+                showIcon:true,  
                 
  
             }
         },
         props:['item'],
-
   
-
-
+        
         methods: {
-            ResetVideo(){
-                document.querySelectorAll(".videos").forEach(video => {
-                    video.currentTime=0
-                })
+            PlayVideo(event){
+                if(window.innerWidth<665){
+                    return false
+                }
+                this.showIcon = false
+  
+                event.target.children[2].lastChild.currentTime = 0
+                event.target.children[2].lastChild.autoplay = true
+                event.target.children[2].classList.add("game-video-show");
+
+            },
+            StopVideo(event){
+                event.target.children[2].classList.remove("game-video-show");
+                this.showIcon = true
+            },
+            PlayClickVideo(event){
+                 if(window.innerWidth>665){
+                    return false
+                }
+                    event.target.currentTime = 0
+                    event.target.autoplay = true
+                    event.target.parentElement.classList.toggle("game-video-show");
+
+                 this.showIcon = !this.showIcon;
                
             },
             ShowOnHover(){
@@ -241,6 +264,10 @@
         transform: translate(-50%, 0%);
         cursor: pointer;
         display: none;
+        padding: 0.4em;
+        background: #ff0000b0;
+        border-radius: 15px;
+        color: white;
     }
     
     .game-img{
@@ -256,13 +283,18 @@
         }
     }
     .game-desc{
-        height: 140px;
+        height: 110px;
         h1{
             font-size: 1.5em;
             margin: 1.8em 0.5em;
+            
+            &:hover{
+                color: yellow;
+            }
         }
     }
     .game-video{    
+        width: 100%;
         position: absolute;
         top: 0;
         opacity: 0;
@@ -272,8 +304,22 @@
             height: 250px;
             border-radius: 20px 20px 0 0;
         }
-        &:hover{
+
+    }
+
+    .game-video-show{
             opacity: 1;
+ 
+        }
+
+    .play-icon{
+        i{
+            font-size: 2.8em;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
         }
     }
 }
@@ -336,6 +382,7 @@
         .show-more{
             display: inline;
         }
+
     }
     
 }

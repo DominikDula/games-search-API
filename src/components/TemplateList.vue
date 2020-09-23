@@ -106,6 +106,10 @@
                 border-bottom: 1px solid #ffffffa1;
                 font-size: 0.9em;
                 color: #ffffffad;
+
+                &:hover{
+                    color: yellow;
+                }
             }
 
         }
