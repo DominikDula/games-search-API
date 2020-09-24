@@ -8,11 +8,11 @@
         <div class="images-container">
             <div class="big-image">
                 <img class="image-overlay" :src="singleImage" :alt="singleImage">
+                <i class="fas fa-times-circle"></i>
             </div>
         <div class="small-images">
-            <img class="image-overlay" @click="ShowImage"  v-for="image in results" :key="image.id" :src="image.image">
+            <img class="image-overlay" @click="ShowImage"   v-for="image in results" :key="image.id" :src="image.image">
         </div>
-
         </div>  
     </div>
 </div>
@@ -48,6 +48,8 @@
             ShowImage(event){
                 this.singleImage = event.target.src
                 document.documentElement.style = 'overflow:hidden;'
+
+                
                 
             },
             HideImage(event){
@@ -58,6 +60,11 @@
                 document.documentElement.style = 'overflow:visible;'
                 
             },
+            // ShowNext(index){
+           
+            //         console.log(index);
+                
+            // }
         },
 
     }
@@ -98,9 +105,6 @@ h1{
 }
 
 .container-overlay{
-    .images-container{
-        max-width: 1440px;
-    }
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -111,10 +115,29 @@ h1{
     justify-content: center;
     align-items: center;
     z-index: 1;
+    .images-container{
+        max-width: 1440px;
+
+    }
 
     .big-image{
       display: flex;
       justify-content: center;
+
+        i{
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 2.3em;
+            cursor: pointer;
+        }
+        i:hover{
+            color: rgb(228, 228, 228);
+        }
+
+
+
+
 
       .image-overlay{
           border-radius: 15px;

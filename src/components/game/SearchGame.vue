@@ -2,6 +2,7 @@
     <div class="search">
         <form @submit.prevent="Search()" action="">
             <input id="input" v-model="query" placeholder="Search games" type="text">
+            <i @click.prevent="Search()" class="fas fa-search"></i>
         </form> 
         
     </div>
@@ -34,12 +35,13 @@
 .search{
     width: 80%;
     height: 40px;
-    margin: 3em auto 0;
+    margin: 5em auto 0;
     max-width: 1440px;
 
     
     form{
         height: 40px;
+        position: relative;
     }
     input{
         position: relative;
@@ -49,7 +51,7 @@
         border:none;
         outline: none;
         font-size: 1em;
-        padding-left: 1.5em;  
+        text-indent: 1.5em;
         background-color: rgb(255 255 255 / 20%);
         color:rgb(212, 207, 207);
         transition: 0.2s ease-in-out;
@@ -66,6 +68,16 @@
             color:rgb(212, 207, 207);
         }
 
+    }
+    input:hover ~ i,input:focus ~ i{
+        color: black;
+    }
+
+    i{
+        position: absolute;
+        right: 14px;
+        top: 14px;
+        cursor: pointer;
     }
 }
 

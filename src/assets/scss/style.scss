@@ -16,26 +16,26 @@ body{
 
   
   
-  #nav {
-    width: 100%;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #151515;
+//   #nav {
+//     width: 100%;
+//     height: 70px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     background-color: #151515;
   
-    a {
-        font-size: 1.2em;
-        margin: 0 0.3em;
-        font-weight: bold;
-        color: #fff;
-        text-decoration: none;
+//     a {
+//         font-size: 1.2em;
+//         margin: 0 0.3em;
+//         font-weight: bold;
+//         color: #fff;
+//         text-decoration: none;
   
-      &.router-link-exact-active {
-        color:yellow;
-      }
-    }
-  }
+//       &.router-link-exact-active {
+//         color:yellow;
+//       }
+//     }
+//   }
 
 
   .smooth-enter-active, .smooth-leave-active {
@@ -85,6 +85,12 @@ body{
 
 
 
+}
+
+@media (max-width: 665px){
+    .grid-container,.creator-container{
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
 }
 
 

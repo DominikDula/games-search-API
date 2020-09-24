@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="bg-image" v-bind:style="{ backgroundImage: 'url(' + results.background_image + ')' }">
-            
+            <video class="videos"  v-if="results.clip"  loop  muted autoplay >
+                    <source :src="results.clip.clips['full']" type="video/mp4" >
+            </video>
         </div>
         <div class="single-game-name">
             <h1>{{results.name}}</h1>
@@ -197,7 +199,7 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
 
 .bg-image{
     width: 100%;
-    height: 600px;
+    height: 650px;
     position: absolute;
     top: 0;
     left: 0;
@@ -211,6 +213,11 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
         height: 100%;
         object-fit: cover;
 
+    }
+    .videos{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 }
 .bg-image::after{
@@ -229,6 +236,10 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
     display: flex;
     justify-content: flex-start;
     padding: 0 1em;
+
+    h1{
+        margin: 0;
+    }
  
     }
 
@@ -236,7 +247,7 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
     position: relative;
     max-width: 1440px;
     display: flex;
-    margin: 70px auto;
+    margin: 150px auto;
     background: #201d21ab;
     // flex-direction: column;
     justify-content: center;
@@ -442,6 +453,9 @@ span{
         
 
 @media (max-width: 860px){
+    .bg-image{
+        height: 600px;
+    }
 
     .single-game-name{
         font-size: 1.1em;
@@ -450,7 +464,7 @@ span{
     }
     .single-game-container{
         max-width: 100%;
-        margin: 100px auto;
+        margin: 180px auto;
         flex-direction: column;
         padding: 25px;
 

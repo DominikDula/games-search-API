@@ -1,7 +1,7 @@
 <template>
 <div class="similar" >
     <h1>Games like {{name}}</h1>
-    <div class="grid-container" >
+    <div class="grid-container-similar" >
         <game-info v-for="item in results" :key="item.id" :item="item" />
     </div>
     <div class="button">
@@ -103,7 +103,7 @@ h1{
     justify-content: center;
 }
 
-.grid-container {
+.grid-container-similar {
     padding: 6em 1em;
     display: grid;
     grid-gap: 1em;
@@ -115,7 +115,7 @@ h1{
 }
     @media (min-width: 700px){
     
-   .grid-container{
+   .grid-container-similar{
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 
@@ -148,18 +148,15 @@ h1{
 
 }
 
+@media (max-width: 665px){
+    .grid-container-similar {
+        grid-auto-rows: minmax(300px, auto);
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
-[v-cloak] {
-	display: none;
+    }
+
 }
 
-.fade-enter-active {
-	transition: all 0.2s ease;
-}
-
-.fade-enter {
-	transform: scale(0.9);
-}
 
 
    

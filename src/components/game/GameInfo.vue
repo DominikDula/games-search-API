@@ -377,11 +377,20 @@
         }
 }
 
-@media (max-width: 655px) { 
+@media (max-width: 665px) { 
     .game-info{
         .show-more{
             display: inline;
+            font-size: 0.8em
         }
+        .game-desc{
+            height: 110px;
+
+            h1{
+                font-size: 1.2em;
+
+            }
+    }
 
     }
     

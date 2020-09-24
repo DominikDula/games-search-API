@@ -76,6 +76,7 @@ import LoadMore from '@/components/LoadMore.vue';
 h1{
     max-width: 1440px;
     display: flex;
+    justify-content: center;
     margin: 2em auto 0;
 
     span{
@@ -85,6 +86,14 @@ h1{
 
 .bottom{
     padding: 0 0 4em;
+}
+
+@media (max-width: 655px) { 
+    
+   h1{
+        font-size: 1.3em;
+    }
+    
 }
 
 </style>
