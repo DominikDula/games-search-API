@@ -109,6 +109,8 @@
 @media( max-width:600px) {
     .hamburger{
         display: block;
+        width: 100%;
+        height: 30px;
     }
     
     .navigation{
@@ -121,7 +123,7 @@
         flex-direction: column;
         
         a{
-            padding: 2em 0;
+            padding: 1.5em 0;
         }
     }
 }

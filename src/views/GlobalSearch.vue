@@ -56,12 +56,18 @@ import LoadMore from '@/components/LoadMore.vue';
         methods: {
 
             async getAllGame() {
+                try{
+                    let response = await fetch(`https://rawg.io/api/games?search=${this.query}&page=${this.pagesize}`);
+                    let data = await response.json()
+                    this.results = data.results
+                    this.next = data.next
+                    // console.log(data.results);
+                }
+                catch(error){
+                    this.$router.push({name: '404Page'})
+                }
 
-            let response = await fetch(`https://rawg.io/api/games?search=${this.query}&page=${this.pagesize}`);
-            let data = await response.json()
-            this.results = data.results
-            this.next = data.next
-            // console.log(data.results);
+            
 
 
             },

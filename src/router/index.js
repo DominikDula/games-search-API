@@ -87,6 +87,14 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "global-search" */ "../views/GlobalSearch.vue")
   },
+  {
+    path: "/404",
+    alias: '*',
+    name: "404Page",
+    props:true,
+    component: () =>
+      import(/* webpackChunkName: "404" */ "../views/404Page.vue")
+  },
 ];
 
 const router = new VueRouter({

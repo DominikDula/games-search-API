@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="bg-image" v-bind:style="{ backgroundImage: 'url(' + results.background_image + ')' }">
-            <video class="videos"  v-if="results.clip"  loop  muted autoplay >
+            <!-- <video class="videos"  v-if="results.clip"  loop  muted autoplay >
                     <source :src="results.clip.clips['full']" type="video/mp4" >
-            </video>
+            </video> -->
         </div>
         <div class="single-game-name">
             <h1>{{results.name}}</h1>
@@ -149,15 +149,23 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
             },
         },
         methods: {
+
             async getSingleGame() {
 
-            let response = await fetch(`https://rawg.io/api/games/${this.slug}`);
-            let data = await response.json()
-            this.results = data
-            this.about = data.description.substring(0,550) +'...'
-            this.shortabout = data.description.substring(0,550)
-            this.longabout = data.description
-            // console.log(data);
+                try {
+                    let response = await fetch(`https://rawg.io/api/games/${this.slug}`);
+                    let data = await response.json()
+                    this.results = data
+                    this.about = data.description.substring(0,550) +'...'
+                    this.shortabout = data.description.substring(0,550)
+                    this.longabout = data.description
+                    // console.log(data);
+                    }
+                catch (error) {
+                     this.$router.push({name: '404Page'})
+                }
+
+            
             
             },
 

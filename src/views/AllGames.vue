@@ -75,11 +75,19 @@ import LoadMore from '@/components/LoadMore.vue';
 
             async getAllGame() {
 
-            let response = await fetch(`https://rawg.io/api/games?&page=${this.pagesize}&dates=${this.selected}`);
-            let data = await response.json()
-            this.results = data.results
-            this.next = data.next
-            console.log(data.results);
+                try {
+                     let response = await fetch(`https://rawg.io/api/games?&page=${this.pagesize}&dates=${this.selected}`);
+                    let data = await response.json()
+                    this.results = data.results
+                    this.next = data.next
+                    // console.log(data.results);
+                    }
+                catch (error) {
+                    console.log(error);
+                }
+
+ 
+
             },
             
         },

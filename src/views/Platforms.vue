@@ -23,11 +23,17 @@ import TemplateList from '@/components/TemplateList.vue';
         methods: {
 
             async getPlatforms() {
+                try{
+                    let response = await fetch(`https://api.rawg.io/api/platforms`);
+                    let data = await response.json()
+                    this.results = data.results
+                    // console.log(data);
+                }
+                catch(error){
+                    this.$router.push({name: '404Page'})
+                }
 
-            let response = await fetch(`https://api.rawg.io/api/platforms`);
-            let data = await response.json()
-            this.results = data.results
-            // console.log(data);
+            
             
 
 

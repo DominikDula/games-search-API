@@ -1,6 +1,6 @@
 <template>
     <div class="game-video">
-         <iframe width="1140" height="550" :src="`https://www.youtube.com/embed/${results}`" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+         <iframe width="1140" height="550" :src="`https://www.youtube.com/embed/${trailer || results}`" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 </template>
 
@@ -9,6 +9,7 @@
         data() {
             return {
                 results:'',
+                trailer:'',
             }
         },
         props: {
@@ -19,6 +20,7 @@
         },
         created () {
             this.GetGameVideo()
+            this.getVideoTrailer()
         },
         methods: {
 
@@ -28,7 +30,16 @@
             let data = await response.json()
             this.results = data.results[1].external_id
               
-            }
+            },
+            async getVideoTrailer() {
+
+            let response = await fetch(`https://rawg.io/api/games/${this.slug}`);
+            let data = await response.json()
+            this.trailer = data.clip.video
+            },
+        },
+        computed: {
+
         },
         
     }

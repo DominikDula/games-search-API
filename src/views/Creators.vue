@@ -46,11 +46,15 @@ import LoadMore from '@/components/LoadMore.vue';
         },
         methods: {
            async GetCreators() {
-               let response = await fetch(`https://api.rawg.io/api/creators?page_size=20&page=${this.pagesize}`)
-               let data = await response.json()
-               this.results = data.results
-               this.next = data.next
-
+                try{
+                    let response = await fetch(`https://api.rawg.io/api/creators?page_size=20&page=${this.pagesize}`)
+                    let data = await response.json()
+                    this.results = data.results
+                    this.next = data.next
+                }
+                catch(error){
+                    this.$router.push({name: '404Page'})
+                }
                 
             }
         },

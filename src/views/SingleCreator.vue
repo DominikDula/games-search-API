@@ -62,11 +62,17 @@ import LoadMore from '@/components/LoadMore.vue';
         },
         methods: {
             async getSingleCreator() {
+                try{
+                    let response = await fetch(`https://api.rawg.io/api/games?creators=${this.slug}&page=${this.pagesize}`);
+                    let data = await response.json()
+                    this.results = data
+                    this.next = data.next
+                }
+                catch(error){
+                    this.$router.push({name: '404Page'})
+                }
 
-            let response = await fetch(`https://api.rawg.io/api/games?creators=${this.slug}&page=${this.pagesize}`);
-            let data = await response.json()
-            this.results = data
-            this.next = data.next
+            
             
             },
             async getCreatorInfo() {

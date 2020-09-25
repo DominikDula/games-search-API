@@ -60,11 +60,18 @@ import LoadMore from '@/components/LoadMore.vue';
         methods: {
             async getSingleDeveloper() {
 
-            let response = await fetch(`https://api.rawg.io/api/games?developers=${this.slug}&page=${this.pagesize}`);
-            let data = await response.json()
-            this.results = data
-            this.next = data.next
-            // console.log(data);
+                try{
+                    let response = await fetch(`https://api.rawg.io/api/games?developers=${this.slug}&page=${this.pagesize}`);
+                    let data = await response.json()
+                    this.results = data
+                    this.next = data.next
+                    // console.log(data);
+                }
+                catch(error){
+                    this.$router.push({name: '404Page'})
+                }
+
+
             
             },
             async getDeveloperInfo() {
