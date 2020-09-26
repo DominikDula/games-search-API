@@ -81,4 +81,10 @@
     }
 }
 
+@media( max-width:600px) {
+    .search{
+        margin: 0 auto 0;
+    }
+}
+
 </style>

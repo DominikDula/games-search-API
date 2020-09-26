@@ -1,20 +1,29 @@
 <template>
-<div>
+<div >
     <h1>Gallery</h1>
-    <div class="image-grid">
-        <img @click="ShowImage" v-for="image in results" :key="image.id" :src="image.image">
+    <div  class="image-grid">
+        <img @click="ShowImage($event);ShowNext(index)"   v-for="(image,index) in results" :key="image.id" :src="image.image">
     </div>
-    <div @click="HideImage" v-if="singleImage" class="container-overlay">
-        <div class="images-container">
-            <div class="big-image">
-                <img class="image-overlay" :src="singleImage" :alt="singleImage">
-                <i class="fas fa-times-circle"></i>
-            </div>
-        <div class="small-images">
-            <img class="image-overlay" @click="ShowImage"   v-for="image in results" :key="image.id" :src="image.image">
+   <transition name="fade"> 
+        <div @click="HideImage" v-if="singleImage" class="container-overlay">
+            <i class="fas fa-times-circle"></i>
+            <div class="images-container">
+                
+                <div class="big-image">
+                    <img class="image-overlay" :src="imgArray[imgIndex]" :alt="imgArray[imgIndex]">
+                    <i @click="DecreaseIndex()" class="fas fa-angle-left left"></i>
+                    <i @click="IncreaseIndex()" class="fas fa-angle-right right"></i>
+                </div>
+                <div class="small-images">
+                    <img class="image-overlay" 
+                    @click="ShowImage($event);ShowNext(index)"   
+                    v-for="(image,index) in results" 
+                    :key="image.id" 
+                    :src="image.image">
+                </div>
+            </div>  
         </div>
-        </div>  
-    </div>
+    </transition>
 </div>
     
 </template>
@@ -25,6 +34,8 @@
             return {
                 results:'',
                 singleImage:'',
+                imgIndex:'',
+                imgArray:[],
             }
         },
         props: {
@@ -35,6 +46,7 @@
         },
         created () {
             this.GetGameScreenshots()
+            this.ArrowSlider()
             
         },
         methods: {
@@ -43,6 +55,10 @@
             let response = await fetch(`https://rawg.io/api/games/${this.slug}/screenshots`);
             let data = await response.json()
             this.results = data.results
+            data.results.forEach(element => {
+                 this.imgArray.push(element.image)
+            });
+           
                 
             },
             ShowImage(event){
@@ -53,19 +69,41 @@
                 
             },
             HideImage(event){
-                if(event.target.className === 'image-overlay'  ){
+                if(event.target.className === 'image-overlay' || event.target.className === 'fas fa-angle-left left'
+                 || event.target.className === 'fas fa-angle-right right' ){
                     return false
                 }
                 this.singleImage = ''
                 document.documentElement.style = 'overflow:visible;'
                 
             },
-            // ShowNext(index){
-           
-            //         console.log(index);
-                
-            // }
+            ShowNext(index){
+                this.imgIndex = index
+            },
+            IncreaseIndex(){
+                if(this.imgIndex >= this.imgArray.length-1){
+                 return  this.imgIndex = 0
+                }
+                this.imgIndex +=1
+            },
+            DecreaseIndex(){
+                if(this.imgIndex <=0){
+                 return  this.imgIndex = this.imgArray.length -1
+                }
+                this.imgIndex -=1
+            },
+            ArrowSlider(){
+                window.addEventListener('keyup',(e)=>{
+                if(e.keyCode === 37){
+                    this.DecreaseIndex()
+                }
+                if(e.keyCode === 39){
+                    this.IncreaseIndex()
+                }
+            })
+            }
         },
+   
 
     }
 </script>
@@ -115,6 +153,16 @@ h1{
     justify-content: center;
     align-items: center;
     z-index: 1;
+            i{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.3em;
+            cursor: pointer;
+        }
+        i:hover{
+            color: rgb(228, 228, 228);
+        }
     .images-container{
         max-width: 1440px;
 
@@ -123,17 +171,30 @@ h1{
     .big-image{
       display: flex;
       justify-content: center;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
 
-        i{
+        .right,.left{
+            width: 40px;
+            height: 40px;
+            background: #0000006b;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .right{
             position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 2.3em;
-            cursor: pointer;
+            top: 50%;
+            right: 15px;
         }
-        i:hover{
-            color: rgb(228, 228, 228);
+        .left{
+            position: absolute;
+            top: 50%;
+            left: 15px;
         }
+
 
 
 
@@ -141,6 +202,7 @@ h1{
 
       .image-overlay{
           border-radius: 15px;
+          width: 100%;
       }
       img{
           width: 70%;

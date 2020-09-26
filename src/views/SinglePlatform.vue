@@ -80,6 +80,9 @@ import LoadMore from '@/components/LoadMore.vue';
             let response = await fetch(`https://api.rawg.io/api/platforms/${this.id}`);
             let data = await response.json()
             this.info = data
+            if(response.status===404){
+                this.$router.push({name: '404Page'})
+            }           
             
             },
 

@@ -72,6 +72,7 @@
     justify-content: center;
     align-items: center;
     background-color: #151515;
+    opacity: 1;
   
     a {
         font-size: 1.2em;
@@ -90,7 +91,7 @@
   }
 .hamburger{
     width: 100%;
-    display: none;
+    opacity: 0;
 
     i{
         position: absolute;
@@ -111,16 +112,28 @@
         display: block;
         width: 100%;
         height: 30px;
+        opacity: 1;
+
     }
     
     .navigation{
-        display: none;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(600px,0);
+        transition: 0.5s ease-in-out;
+        a{
+            padding: 1.5em 0;
+        }
     }
     .navigation-show {
         width: 100vw;
         height: 100vh;
         display: flex;
         flex-direction: column;
+        opacity: 1;
+        transform: translateY(-600px,0);
+        transition: 0.5s ease-in-out;
         
         a{
             padding: 1.5em 0;

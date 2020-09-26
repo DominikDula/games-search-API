@@ -76,10 +76,17 @@ import LoadMore from '@/components/LoadMore.vue';
             
             },
             async getCreatorInfo() {
+    
+                    let response = await fetch(`https://api.rawg.io/api/creators/${this.slug}`);
+                    let data = await response.json()
+                    this.info = data
+                    if(response.status===404){
+                        this.$router.push({name: '404Page'})
+                    }
+                
 
-            let response = await fetch(`https://api.rawg.io/api/creators/${this.slug}`);
-            let data = await response.json()
-            this.info = data
+
+
             
             },
 
