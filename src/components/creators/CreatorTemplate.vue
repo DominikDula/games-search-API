@@ -23,7 +23,7 @@
 <style lang="scss" scoped>
 
 .creator{
-    max-width: 1440px;
+    max-width: $base-width;
     position: relative;
     margin: 2em auto 0;
 
@@ -50,10 +50,10 @@ article{
     position: relative;
     display: flex;
     justify-content: center;
-    max-width: 1440px;
+    max-width: $base-width;
     margin: 0 auto;
     line-height: 1.3;
-    border-radius: 15px;
+    border-radius: $border-medium;
     line-height: 2;
 
   ::v-deep  p{

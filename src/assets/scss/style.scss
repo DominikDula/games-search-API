@@ -1,15 +1,14 @@
 @import 'variables';
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;1,400;1,500&display=swap');
+
 
 body{
-    background-color: #151515;
+    background-color: $primary-bg;
     color: #fff;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-    // width: 1440px;
-    // margin: 0 auto;
+
 
 }
 
@@ -18,7 +17,7 @@ body{
   .smooth-enter-active, .smooth-leave-active {
     transition: opacity 0.5s,transform 0.5s;
   }
-  .smooth-enter, .smooth-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  .smooth-enter, .smooth-leave-to {
     opacity: 0;
     transform: translateX(-100%);
   }
@@ -38,7 +37,7 @@ body{
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 1em;
     grid-auto-rows: minmax(300px, auto);
-    max-width: 1440px;
+    max-width: $base-width;
     min-height: 100vh;
     margin: 0 auto;
 
@@ -51,7 +50,7 @@ body{
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 1em;
     grid-auto-rows: minmax(400px, auto);
-    max-width: 1440px;
+    max-width: $base-width;
     min-height: 100vh;
     margin: 0 auto;
 
@@ -66,12 +65,7 @@ body{
 }
 
 
-
-
-
-
-
-  .negative{
+.negative{
     border: 3px solid #f00;
     color: #f00;
 }

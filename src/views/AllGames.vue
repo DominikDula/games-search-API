@@ -1,13 +1,21 @@
 <template>
 <div>
-
-    <select @change="getAllGame()" v-model="selected" name="" id="">
+    <div class="filters">
+        <select @change="getAllGame()" v-model="selected" name="" id="">
         <option value="">Select Year</option>
         <option v-for="(year,index) in YearGenerator" :key="index+1" :value=" year[0] + ','+ year[1]">
             {{year[0]}}
         </option>
         
     </select>
+    <select @change="changeRout()" v-model='platformOption'  name="" id="">
+        <option value="">Select Platform</option>
+        <option v-for="(platform,index) in PlatformGenerator" :key="index+1" :value=" platform.id + '/'+platform.name">
+            {{platform.name}}
+        </option>
+        
+    </select>
+    </div>
       <h1  v-if="selected">Best games in {{selected.slice(0,4)}}</h1>
      <div class="grid-container">
         <game-info v-for="item in results" :key="item.id" :item="item" />
@@ -26,7 +34,9 @@ import LoadMore from '@/components/LoadMore.vue';
                 results:'',
                 pagesize: 1,
                 next:'',
-                selected:''
+                selected:'',
+                PlatformGenerator:[],
+                platformOption:''
             }
         },
         components: {
@@ -35,6 +45,7 @@ import LoadMore from '@/components/LoadMore.vue';
         },
         created () {
             this.getAllGame();
+            this.getPlatform();
     
         },
         mounted () {
@@ -80,42 +91,60 @@ import LoadMore from '@/components/LoadMore.vue';
                     let data = await response.json()
                     this.results = data.results
                     this.next = data.next
-                    // console.log(data.results);
                     }
                 catch (error) {
                     console.log(error);
                 }
-
- 
+            },
+            async getPlatform(){
+                    let response = await fetch(`https://api.rawg.io/api/platforms`);
+                    let data = await response.json()
+                    data.results.forEach(element => {
+                        this.PlatformGenerator.push({name:element.name,id:element.id})
+                    });
 
             },
+            changeRout() {
+                this.$router.push({path:'/platforms' + '/' + this.platformOption })
+            },
+        }
             
-        },
+        
     }
 </script>
 
 
 <style lang="scss" scoped>
 
-select{
+.filters{
+    display: flex;
+    justify-content: center;
+    max-width: $base-width;
+    margin: 2em auto 0;
+
+
+
+    select{
     background-color: #272727;
     color: white;
-    padding: 12px;
-    width: 250px;
+    padding: 10px;
+    width: 200px;
     border: none;
-    font-size: 1.2em;
-    border-radius: 15px;
+    font-size: 1em;
+    border-radius: $border-small;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
     outline: none;
-    max-width: 1440px;
-    display: flex;
-    margin: 20px auto 0;
+    margin: 0 10px;
 
    
 }
 
+}
+
+
+
 h1{
-        max-width: 1440px;
+        max-width: $base-width;
         display: flex;
         margin: 20px auto 0;
         justify-content: center;
@@ -126,7 +155,17 @@ h1{
 }
 
 @media (max-width: 655px) { 
-    
+    .filters{
+
+        select{
+        padding: 8px;
+        width: 130px;
+        font-size: 0.8em;
+
+    }
+
+}
+
    h1{
         font-size: 1.3em;
     }

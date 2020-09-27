@@ -98,7 +98,7 @@ import LoadMore from '@/components/LoadMore.vue';
 
 
  h1{
-    max-width: 1440px;
+    max-width: $base-width;
     margin: 30px auto 0; 
     display: flex;
     justify-content: center;

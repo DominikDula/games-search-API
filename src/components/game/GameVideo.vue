@@ -1,6 +1,6 @@
 <template>
     <div class="game-video">
-         <iframe width="1140" height="550" :src="`https://www.youtube.com/embed/${trailer || results}`" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+         <iframe class="frame" width="1140" height="550" src=""  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 </template>
 
@@ -10,6 +10,7 @@
             return {
                 results:'',
                 trailer:'',
+
             }
         },
         props: {
@@ -28,19 +29,33 @@
              
             let response = await fetch(`https://api.rawg.io/api/games/${this.slug}/youtube`);
             let data = await response.json()
-            this.results = data.results[1].external_id
+            if(data.results.length<1){
+                return
+            }else{
+                this.results = data.results[1].external_id
+            }
+            let url = document.querySelector('.frame');
+            url.src = `https://www.youtube.com/embed/${this.trailer || this.results}`
+
               
             },
             async getVideoTrailer() {
 
             let response = await fetch(`https://rawg.io/api/games/${this.slug}`);
             let data = await response.json()
-            this.trailer = data.clip.video
+            if(!data.clip){
+                return
+            }else{
+                this.trailer = data.clip.video
+            } 
+            let url = document.querySelector('.frame');
+            url.src = `https://www.youtube.com/embed/${this.trailer || this.results}`
             },
         },
-        computed: {
+ 
+    
+  
 
-        },
         
     }
 </script>
@@ -49,13 +64,13 @@
 
 .game-video{
     margin: 0 auto;
-    max-width: 1440px;
+    max-width: $base-width;
     display: flex;
     justify-content: center;
     padding: 3em;
 
    ::v-deep iframe{
-        border-radius: 15px;
+        border-radius: $border-small;
     }
 }
 

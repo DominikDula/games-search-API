@@ -43,7 +43,7 @@
 }
 
 .message{
-    max-width: 1440px;
+    max-width: $base-width;
     margin: 0 auto;
     height: 100%;
     display: flex;
@@ -67,7 +67,7 @@
         align-items: center;
         text-decoration: none;
         font-size: 1.6em;
-        border-radius: 15px;
+        border-radius: $border-medium;
         cursor: pointer;
         margin-top: 2em;
     }

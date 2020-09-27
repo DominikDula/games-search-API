@@ -187,7 +187,7 @@
 
 <style lang="scss" >
 .game-holder{
-    border-radius: 20px;
+    border-radius: $border-large;
     
 
 
@@ -195,9 +195,9 @@
 }
 
 .game-info{
-    background-color: #202020;
+    background-color: $secondary-bg;
     position: relative;
-    border-radius: 20px;
+    border-radius: $border-medium;
     // transition: 0.2s ease-in;
     .platform-img  {
         display: flex;
@@ -230,7 +230,7 @@
             top: 0;
             left: 0;
             object-fit: cover;
-            border-radius: 20px 20px 0 0;
+            border-radius: 10px 10px 0 0;
         }
     .metacritic{
         width: 38px;
@@ -266,7 +266,7 @@
         display: none;
         padding: 0.4em;
         background: #ff0000b0;
-        border-radius: 15px;
+        border-radius: $border-medium;
         color: white;
     }
     
@@ -276,7 +276,7 @@
         img{
             width: 100%;
             object-fit: cover;
-            border-radius: 20px 20px 0 0;
+            border-radius: 10px 10px 0 0;
         }
         &:hover{
             opacity: 0;
@@ -302,7 +302,7 @@
             object-fit: cover;
             width: 100%;
             height: 250px;
-            border-radius: 20px 20px 0 0;
+            border-radius: 10px 10px 0 0;
         }
 
     }
@@ -329,7 +329,7 @@
     bottom: -105px;
     width: 100%;
     z-index: 1;
-    background-color: #202020;
+    background-color: $secondary-bg;
     border-radius: 0 0 20px 20px;
 
     ul{

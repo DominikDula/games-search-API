@@ -71,7 +71,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #151515;
+    background-color: $primary-bg;
     opacity: 1;
   
     a {

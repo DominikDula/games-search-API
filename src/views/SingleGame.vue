@@ -238,7 +238,7 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
     height: 100%;
 }
 .single-game-name{
-    max-width: 1440px;
+    max-width: $base-width;
     margin: 300px auto 0;
     font-size: 2em;
     display: flex;
@@ -253,13 +253,13 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
 
 .single-game-container{
     position: relative;
-    max-width: 1440px;
+    max-width: $base-width;
     display: flex;
     margin: 150px auto;
     background: #201d21ab;
     // flex-direction: column;
     justify-content: center;
-    border-radius: 20px;
+    border-radius: $border-small;
     padding: 50px;
     background-position: center center;
     background-size: cover;
@@ -304,7 +304,7 @@ span{
         color: black;
         padding: 0.3em 1.2em;
         background: rgb(255 255 255);
-        border-radius: 20px;
+        border-radius: $border-large;
         font-size: 0.8em;
         text-decoration: none;
         font-weight: 500;
@@ -358,7 +358,7 @@ span{
     }
 
 .stores-div{
-    max-width: 1440px;
+    max-width: $base-width;
     margin: 0 auto;
     // background: rgb(41, 41, 41);
 
@@ -386,7 +386,7 @@ span{
         justify-content: center;
         flex-direction: column;
         align-items: center;
-        border-radius: 15px;
+        border-radius: $border-small;
         overflow: hidden;
         
    
@@ -394,7 +394,7 @@ span{
         a{
             color: white;
             padding: 0.5em;
-            border-radius: 20px;
+            border-radius: $border-large;
             text-decoration: none;
             background: #ff0000b0;
         }

@@ -19,7 +19,7 @@
 <style lang="scss" scoped>
 
 .platform{
-    max-width: 1440px;
+    max-width: $base-width;
     position: relative;
     margin: 2em auto 0;
 
@@ -36,14 +36,14 @@ article{
     position: relative;
     display: flex;
     justify-content: center;
-    max-width: 1440px;
+    max-width: $base-width;
     margin: 0 auto;
     line-height: 1.3;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: 0;
-    border-radius: 15px;
+    border-radius: $border-medium;
     z-index: 1;
     overflow: hidden;
     min-height: 400px;

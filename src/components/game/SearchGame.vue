@@ -36,7 +36,7 @@
     width: 80%;
     height: 40px;
     margin: 5em auto 0;
-    max-width: 1440px;
+    max-width: $base-width;
 
     
     form{
@@ -47,7 +47,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        border-radius: 20px;
+        border-radius: $border-large;
         border:none;
         outline: none;
         font-size: 1em;

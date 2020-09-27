@@ -14,6 +14,7 @@
                     <i @click="DecreaseIndex()" class="fas fa-angle-left left"></i>
                     <i @click="IncreaseIndex()" class="fas fa-angle-right right"></i>
                 </div>
+                
                 <div class="small-images">
                     <img class="image-overlay" 
                     @click="ShowImage($event);ShowNext(index)"   
@@ -47,6 +48,7 @@
         created () {
             this.GetGameScreenshots()
             this.ArrowSlider()
+            this.WheelSlider()
             
         },
         methods: {
@@ -91,6 +93,7 @@
                  return  this.imgIndex = this.imgArray.length -1
                 }
                 this.imgIndex -=1
+
             },
             ArrowSlider(){
                 window.addEventListener('keyup',(e)=>{
@@ -101,7 +104,18 @@
                     this.IncreaseIndex()
                 }
             })
-            }
+            },
+            WheelSlider(){
+                window.addEventListener('wheel',(e)=>{
+                if(e.deltaY === 100){
+                    this.DecreaseIndex()
+                }
+                if(e.deltaY === -100){
+                    this.IncreaseIndex()
+                }
+            })
+
+            },
         },
    
 
@@ -110,8 +124,9 @@
 
 <style lang="scss" scoped>
 
+
 h1{
-    max-width: 1440px;
+    max-width: $base-width;
     margin: 0 auto;
     padding: 2em 0 0;
     display: flex;
@@ -131,7 +146,7 @@ h1{
         width: 100%;
         height: 200px;
         object-fit: cover;
-        border-radius: 15px;
+        border-radius: $border-small;
         cursor: pointer;
         transition: 0.1s ease;
 
@@ -164,7 +179,7 @@ h1{
             color: rgb(228, 228, 228);
         }
     .images-container{
-        max-width: 1440px;
+        max-width: $base-width;
 
     }
 
@@ -176,6 +191,7 @@ h1{
       position: relative;
 
         .right,.left{
+            position: absolute;
             width: 40px;
             height: 40px;
             background: #0000006b;
@@ -183,16 +199,14 @@ h1{
             display: flex;
             justify-content: center;
             border-radius: 50%;
+            top: 50%;
+            transform: translate(0, -50%);
         }
         .right{
-            position: absolute;
-            top: 50%;
-            right: 15px;
+            right: 20px;
         }
         .left{
-            position: absolute;
-            top: 50%;
-            left: 15px;
+            left: 20px;
         }
 
 
@@ -201,26 +215,24 @@ h1{
 
 
       .image-overlay{
-          border-radius: 15px;
+          border-radius: $border-small;
           width: 100%;
       }
-      img{
-          width: 70%;
-      }
+
     }
     .small-images{
-        max-width: 1440px;
-    margin: 0 auto;
-    display: grid;
-    grid-gap: 10px;
-    padding: 3em;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        max-width: $base-width;
+        margin: 0 auto;
+        display: grid;
+        grid-gap: 10px;
+        padding: 3em;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
         img{
         width: 100%;
         height: 150px;
         object-fit: cover;
-        border-radius: 15px;
+        border-radius: $border-small;
         cursor: pointer;
         transition: 0.1s ease;
 
@@ -232,7 +244,7 @@ h1{
     }
 }
 
-@media (max-width: 600px){
+@media (max-width: 1270px){
 
     .image-grid{
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -245,14 +257,14 @@ h1{
     .container-overlay{
 
         .big-image{
-            img{
-                width: 90%;
+            .image-overlay{
+                width: 80%;
+                margin-top: 1em;
             }
         }
 
 
         .small-images{
-            height: 150px;
             margin: 0 18px;
             flex-direction: row;
             display: flex;
@@ -261,12 +273,52 @@ h1{
             overflow-y: hidden;
 
             img{
-                width: 50%;
-                height: 85px;
-                margin: 92px 0;
+                width: 30%;
+                height: 100%;
+                margin: 92px 0 0;
 
             }
         }
+    }
+}
+
+@media (max-width: 700px){
+
+    .container-overlay{
+
+          .big-image{
+            .image-overlay{
+                width: 95%;
+                margin-top: 0
+            }
+        }
+
+        .small-images{
+
+            img{
+                width: 50%;
+                height: 60%;
+            }
+        }
+    }
+}
+@media (max-width: 500px){
+
+    .container-overlay{
+            i{
+            font-size: 1.3em;
+        }
+
+          .big-image{
+            .right,.left{
+            width: 25px;
+            height: 25px;
+
+        }
+
+        }
+
+
     }
 }
 

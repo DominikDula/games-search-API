@@ -97,7 +97,7 @@ import GameInfo from '@/components/game/GameInfo.vue';
 }
 
 h1{
-    max-width: 1440px;
+    max-width: $base-width;
     margin: 0 auto;
     display: flex;
     justify-content: center;

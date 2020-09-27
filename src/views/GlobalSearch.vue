@@ -80,7 +80,7 @@ import LoadMore from '@/components/LoadMore.vue';
 <style lang="scss" scoped>
 
 h1{
-    max-width: 1440px;
+    max-width: $base-width;
     display: flex;
     justify-content: center;
     margin: 2em auto 0;

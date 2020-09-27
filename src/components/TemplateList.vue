@@ -61,7 +61,7 @@
     background-repeat: no-repeat;
     background-position-y: 0;
     z-index: 1;
-    border-radius: 15px;
+    border-radius: $border-medium;
     overflow: hidden;
 
     .router-item{
