@@ -7,6 +7,7 @@
       <router-link to="/genres">Genres</router-link>
       <router-link to="/platforms">Platforms</router-link>
       <router-link to="/creators">Creators</router-link>
+      <router-link to="/tags">Tags</router-link>
     </div>
 
     <div class="hamburger">
@@ -120,7 +121,7 @@
         opacity: 0;
         display: flex;
         flex-direction: column;
-        transform: translateY(600px,0);
+        transform: translateY(-600px);
         transition: 0.5s ease-in-out;
         a{
             padding: 1.5em 0;
@@ -132,7 +133,7 @@
         display: flex;
         flex-direction: column;
         opacity: 1;
-        transform: translateY(-600px,0);
+        transform: translateY(0);
         transition: 0.5s ease-in-out;
         
         a{

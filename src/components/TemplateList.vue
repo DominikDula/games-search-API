@@ -39,6 +39,9 @@
                 if(this.$route.name=='Platforms'){
                     this.where='SinglePlatform'
                 }      
+                if(this.$route.name=='Tags'){
+                    this.where='SingleTag'
+                }      
             }
         },
         created () {

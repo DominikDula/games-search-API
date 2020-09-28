@@ -51,6 +51,15 @@
                         </router-link>
                     </section>
                     <section>
+                        <h3>Tags</h3>
+                        <router-link 
+                        v-for="tag in results.tags" 
+                        :key="tag.id" 
+                        :to="{name:'SingleTag',params:{slug:tag.slug}}">
+                        {{ tag.name }}
+                        </router-link>
+                    </section>
+                    <section>
                         <h3>Metacritic Score</h3>
                         <span v-if="results.metacritic" 
                             title="metacritic rating"
@@ -138,9 +147,6 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
 
             
         },
-        updated () {
-            // document.querySelector('.single-game-desc').innerHTML=`<h1>About</h1>${this.results.description}` ;
-        },
    
         props: {
             slug: {
@@ -159,7 +165,7 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
                     this.about = data.description.substring(0,550) +'...'
                     this.shortabout = data.description.substring(0,550)
                     this.longabout = data.description
-                    // console.log(data);
+                    console.log(data);
                     }
                 catch (error) {
                      this.$router.push({name: '404Page'})
@@ -331,7 +337,7 @@ span{
           margin: 0 auto; 
       }  
       h3{
-          margin: 1em 0;
+          margin: 0.5em 0;
           padding: 0;
       }
       .metacritic{

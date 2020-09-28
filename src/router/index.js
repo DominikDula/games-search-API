@@ -25,6 +25,20 @@ const routes = [
       import(/* webpackChunkName: "single-developers" */ "../views/SingleDeveloper.vue")
   },
   {
+    path: "/tags",
+    name: "Tags",
+    props:true,
+    component: () =>
+      import(/* webpackChunkName: "tags" */ "../views/Tags.vue")
+  },
+  {
+    path: "/tags/:slug",
+    name: "SingleTag",
+    props:true,
+    component: () =>
+      import(/* webpackChunkName: "single-tag" */ "../views/SingleTag.vue")
+  },
+  {
     path: "/games/:slug",
     name: "SingleGame",
     props:true,
