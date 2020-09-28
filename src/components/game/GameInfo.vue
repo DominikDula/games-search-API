@@ -20,7 +20,8 @@
                     </div>
 
                     <div v-show="showIcon" class="play-icon">
-                        <i class="fas fa-play-circle"></i>
+                        <i v-if="item.clip" class="fas fa-play-circle"></i>
+                        <i v-if="!item.clip" class="fas fa-image"></i>
                     </div>
                     
                     <div v-if="!item.clip && item.short_screenshots.length>0" class="screenshots" >
@@ -46,7 +47,7 @@
                         {{item.metacritic}}%
                     </span>
                 
-                <span  @click="ShowOnClick()"  class="show-more" >Show more...</span>
+                <span  @click="ShowOnClick()"  class="show-more" >{{show}}</span>
                 
                 <div v-if="isHidden" class="more-info">
                     <ul>
@@ -85,7 +86,8 @@
                 iterator:0,
                 timeout:'',       
                 platformImage : ['amiga','android','atari','ios','linux','mac','nintendo','pc','playstation','sega','web','xbox'],
-                showIcon:true,  
+                showIcon:true,
+                show:'Show more'  
                 
  
             }
@@ -131,6 +133,11 @@
                 if(window.innerWidth<665){
                     this.isHidden = !this.isHidden
                 }
+                if(this.isHidden === true){
+                    this.show = 'Show less'
+                }else if(this.isHidden === false){
+                    this.show = 'Show more'
+                }
                
             },
            
@@ -144,8 +151,9 @@
                 }
                 
                 this.count++;
-                 this.timeout=   setTimeout(() =>{this.ImageAnimation()}, 1000);
-                     this.iterator=this.count
+                this.timeout=   setTimeout(() =>{this.ImageAnimation()}, 1000);
+                this.iterator=this.count
+                this.showIcon = false
                      
 
             },
@@ -153,9 +161,11 @@
                  this.iterator=0
                  this.count=-1
                   clearTimeout(this.timeout)
+                  this.showIcon = true
                 
             
             },
+
          
             
             
@@ -320,6 +330,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
+            z-index: 1;
         }
     }
 }
@@ -365,7 +376,6 @@
            
             a{
                 text-decoration: none;
-                // border-bottom: 1px solid #ffffffa1;
                 font-size: 0.9em;
             }
 

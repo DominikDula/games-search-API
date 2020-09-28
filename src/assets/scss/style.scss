@@ -58,7 +58,7 @@ body{
 
 }
 
-@media (max-width: 665px){
+@media (max-width: 400px){
     .grid-container,.creator-container{
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }

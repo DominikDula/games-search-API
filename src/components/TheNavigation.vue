@@ -1,13 +1,13 @@
 <template>
 <div>
     <div @click="NavClick" id="nav" class=" navigation" :class="{ 'navigation': isActive, 'navigation-show': isNotActive }">
-      <router-link to="/">Home</router-link>
-      <router-link to="/developers">Developers</router-link>
-      <router-link to="/games">All games</router-link>
-      <router-link to="/genres">Genres</router-link>
-      <router-link to="/platforms">Platforms</router-link>
-      <router-link to="/creators">Creators</router-link>
-      <router-link to="/tags">Tags</router-link>
+        <router-link to="/">Home</router-link>
+        <router-link to="/developers">Developers</router-link>
+        <router-link to="/games">All games</router-link>
+        <router-link to="/genres">Genres</router-link>
+        <router-link to="/tags">Tags</router-link>
+        <router-link to="/platforms">Platforms</router-link>
+        <router-link to="/creators">Creators</router-link>
     </div>
 
     <div class="hamburger">
@@ -100,6 +100,7 @@
         right: 25px;
         font-size: 2em;
         cursor: pointer;
+        z-index: 2;
     }
 
 
@@ -130,8 +131,10 @@
     .navigation-show {
         width: 100vw;
         height: 100vh;
-        display: flex;
-        flex-direction: column;
+        position: absolute;
+        top: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 2;
         opacity: 1;
         transform: translateY(0);
         transition: 0.5s ease-in-out;

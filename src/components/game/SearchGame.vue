@@ -78,6 +78,7 @@
         right: 14px;
         top: 14px;
         cursor: pointer;
+        color: #d4cfcf;
     }
 }
 

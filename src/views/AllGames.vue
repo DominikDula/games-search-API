@@ -2,21 +2,23 @@
 <div>
     <div class="filters">
         <select @change="getAllGame()" v-model="selected" name="" id="">
-        <option value="">Select Year</option>
-        <option v-for="(year,index) in YearGenerator" :key="index+1" :value=" year[0] + ','+ year[1]">
-            {{year[0]}}
-        </option>
-        
-    </select>
-    <select @change="changeRout()" v-model='platformOption'  name="" id="">
-        <option value="">Select Platform</option>
-        <option v-for="(platform,index) in PlatformGenerator" :key="index+1" :value=" platform.id + '/'+platform.name">
-            {{platform.name}}
-        </option>
-        
-    </select>
+            <option v-if="!selected" value="">Select Year</option>
+            <option class="clear" v-if="selected" value="">Clear</option>
+            <option v-for="(year,index) in YearGenerator" :key="index+1" :value=" year.join()">
+                {{year[0]}}
+            </option>   
+        </select>
+        <select @change="getAllGame()" v-model='platformOption'  name="" id="">
+            <option v-if="!platformOption" value="">Select Platform</option>
+            <option class="clear" v-if="platformOption" value="">Clear</option>
+            <option v-for="(platform,index) in PlatformGenerator" :key="index+1" :value=" [platform.id,platform.name]">
+                {{platform.name}}
+            </option>
+        </select>
     </div>
-      <h1  v-if="selected">Best games in {{selected.slice(0,4)}}</h1>
+      <h1  v-if="selected && !platformOption">Best games in {{selected.slice(0,4)}}</h1>
+      <h1  v-if="platformOption && !selected">Best games of {{platformOption[1]}}</h1>
+      <h1  v-if=" selected && platformOption">Best games in {{selected.slice(0,4)}} of {{platformOption[1]}}</h1>
      <div class="grid-container">
         <game-info v-for="item in results" :key="item.id" :item="item" />
     </div>
@@ -87,7 +89,7 @@ import LoadMore from '@/components/LoadMore.vue';
             async getAllGame() {
 
                 try {
-                     let response = await fetch(`https://rawg.io/api/games?&page=${this.pagesize}&dates=${this.selected}`);
+                     let response = await fetch(`https://rawg.io/api/games?&page=${this.pagesize}&dates=${this.selected}&platforms=${this.platformOption[0] || '4'}`);
                     let data = await response.json()
                     this.results = data.results
                     this.next = data.next
@@ -137,6 +139,10 @@ import LoadMore from '@/components/LoadMore.vue';
     margin: 0 10px;
 
    
+}
+.clear{
+    background: white;
+    color: red;
 }
 
 }
