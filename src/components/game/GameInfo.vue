@@ -153,6 +153,7 @@
                 this.count++;
                 this.timeout=   setTimeout(() =>{this.ImageAnimation()}, 1000);
                 this.iterator=this.count
+                this.showIcon = false
                      
 
             },
@@ -160,6 +161,7 @@
                  this.iterator=0
                  this.count=-1
                   clearTimeout(this.timeout)
+                  this.showIcon = true
                 
             
             },
