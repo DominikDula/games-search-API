@@ -1,7 +1,8 @@
 <template>
-    <div class="game-video">
+    <div v-show="trailer" class="game-video">
          <iframe class="frame" width="1140" height="550" src=""  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
+    
 </template>
 
 <script>
@@ -20,25 +21,25 @@
             },
         },
         created () {
-            this.GetGameVideo()
+            // this.GetGameVideo()
             this.getVideoTrailer()
         },
         methods: {
 
-            async GetGameVideo() {
+            // async GetGameVideo() {
              
-            let response = await fetch(`https://api.rawg.io/api/games/${this.slug}/youtube`);
-            let data = await response.json()
-            if(data.results.length<1){
-                return
-            }else{
-                this.results = data.results[1].external_id
-            }
-            let url = document.querySelector('.frame');
-            url.src = `https://www.youtube.com/embed/${this.trailer || this.results}`
+            // let response = await fetch(`https://api.rawg.io/api/games/${this.slug}/youtube`);
+            // let data = await response.json()
+            // if(data.results.length<1){
+            //     return
+            // }else{
+            //     this.results = data.results[1].external_id
+            // }
+            // let url = document.querySelector('.frame');
+            // url.src = `https://www.youtube.com/embed/${this.trailer || this.results}`
 
               
-            },
+            // },
             async getVideoTrailer() {
 
             let response = await fetch(`https://rawg.io/api/games/${this.slug}`);
@@ -49,7 +50,7 @@
                 this.trailer = data.clip.video
             } 
             let url = document.querySelector('.frame');
-            url.src = `https://www.youtube.com/embed/${this.trailer || this.results}`
+            url.src = `https://www.youtube.com/embed/${this.trailer}`
             },
         },
  

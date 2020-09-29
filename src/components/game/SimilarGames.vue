@@ -98,7 +98,7 @@ import GameInfo from '@/components/game/GameInfo.vue';
 
 h1{
     max-width: $base-width;
-    margin: 0 auto;
+    margin: 3em auto 0;
     display: flex;
     justify-content: center;
 }
@@ -149,6 +149,9 @@ h1{
 }
 
 @media (max-width: 665px){
+        h1{
+        font-size: 1.2em;
+    }
     .grid-container-similar {
         grid-auto-rows: minmax(300px, auto);
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

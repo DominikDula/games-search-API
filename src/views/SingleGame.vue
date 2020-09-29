@@ -74,7 +74,7 @@
                       
                     </section>
                     <section><h3>Website</h3> <a target="_blank" v-if="results.website" :href="results.website">{{results.website}}</a></section>
-                    <section><h3>Release date</h3> <span>{{results.released}}</span></section> 
+                    <section><h3>Release date</h3> <span>{{releasDate}}</span></section> 
                 </div>
             </div>
         </div>
@@ -96,7 +96,8 @@
         </div>
 
         <game-screenshots :slug="slug" />
-        <game-video :slug="slug" />
+        <game-trailer :slug="slug" />
+        <game-videos :slug="slug" />
         <similar-games :slug="slug" :name="results.name" />
         <div v-if="creators.length>0" class="game-creators">
             <h1>Creators</h1>
@@ -119,7 +120,8 @@
 
 <script>
 import GameScreenshots from '@/components/game/GameScreenshots.vue';
-import GameVideo from '@/components/game/GameVideo.vue';
+import GameTrailer from '@/components/game/GameTrailer.vue';
+import GameVideos from '@/components/game/GameVideos.vue';
 import SimilarGames from '@/components/game/SimilarGames.vue';
 import CreatorsList from '@/components/creators/CreatorsList.vue';
 
@@ -132,14 +134,16 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
                about:'',
                boolean:true,
                creators:'',
+               releasDate:''
 
             }
         },
         components: {
             GameScreenshots,
-            GameVideo,
+            GameTrailer,
             SimilarGames,
             CreatorsList,
+            GameVideos,
         },
         created () {
             this.getSingleGame()
@@ -165,7 +169,7 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
                     this.about = data.description.substring(0,550) +'...'
                     this.shortabout = data.description.substring(0,550)
                     this.longabout = data.description
-                    console.log(data);
+                    this.releasDate = data.released.split('-').reverse().join('.')
                     }
                 catch (error) {
                      this.$router.push({name: '404Page'})
@@ -354,6 +358,7 @@ span{
             margin: 0 5px 0 0;
             line-height: 1.8;
             cursor: pointer;
+            border-bottom: 1px solid white;
             
         }
 
@@ -378,7 +383,7 @@ span{
         width: 50%;
         // background: red;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 
     .single-store{
@@ -497,7 +502,7 @@ span{
     }
     .single-game-detail{
         section{
-            width: 100%;
+            max-width: 100%;
             margin: 0;
         }
     }

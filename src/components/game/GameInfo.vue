@@ -57,7 +57,7 @@
                         </li>
                         <li>
                             <span class="span-title">Released: </span> 
-                            <span v-if="item.released">{{item.released}}</span></li>
+                            <span v-if="item.released">{{ReleaseDate}}</span></li>
                         <li>
                             <span class="span-title">Genres: </span> 
                             <span> 
@@ -186,6 +186,9 @@
                     return false
                 }
                 return this.item.parent_platforms.slice(0,7)
+            },
+            ReleaseDate(){
+                return this.item.released.split('-').reverse().join('.')
             }
            
             

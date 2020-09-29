@@ -1,5 +1,5 @@
 <template>
-     <!-- template for developers/genres/platforms -->
+     <!-- template for developers/genres/platforms/tags -->
 
        <div class="item-info" v-bind:style="{ backgroundImage: 'url(' + item.image_background + ')' }" >    
             <router-link class="router-item" tag="div" :to="{name:where, params:{slug:item.slug,name:item.name,id:item.id}}">   
