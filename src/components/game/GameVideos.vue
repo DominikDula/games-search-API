@@ -2,24 +2,32 @@
 <div v-if="results.length>0" >
     <h1>Youtube Videos</h1>
     <div v-for="(video,index) in results" :key="index+1" @click="ShowVideo($event,video);ShowNext(index)" class="video-grid">
+
         <div class="video-image">
             <img :src="video.thumbnails.sddefault.url"> 
             <i class="fas fa-play-circle play-icon"></i> 
         </div>
+
         <div  class="video-desc">
             <h3>{{video.name}}</h3>
         </div>
              
     </div>
     <transition name="fade"> 
+
         <div @click="HideImage" v-if="singleVideo" class="container-overlay">
             <i class="fas fa-times-circle"></i>
+
             <div class="videos-container">
                 
                 <div class="big-video">
-                     <iframe  :src="`https://www.youtube.com/embed/${videoArray[videoIndex]}`" class="video-overlay" width="1140" height="550"   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <i @click="DecreaseIndex()" class="fas fa-angle-left left"></i>
-                    <i @click="IncreaseIndex()" class="fas fa-angle-right right"></i>
+                    
+                    <div class="video-wrapper">
+                        <iframe  :src="`https://www.youtube.com/embed/${videoArray[videoIndex]}`" class="video-overlay" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <i @click="DecreaseIndex()" class="fas fa-angle-left left"></i>
+                        <i @click="IncreaseIndex()" class="fas fa-angle-right right"></i>
+                    </div>
+                     
                 </div>
                 
                 <div class="small-video">
@@ -64,7 +72,6 @@
              
             let response = await fetch(`https://rawg.io/api/games/${this.slug}/youtube`);
             let data = await response.json()
-            console.log(data.results.filter(video => video.like_count>0));
             this.results = data.results.filter(video => video.like_count>0)
             data.results.filter(video => video.like_count>0)
             .forEach(element => {
@@ -215,11 +222,27 @@ h1{
     }
 
     .big-video{
-      display: flex;
-      justify-content: center;
-      max-width: 100%;
-      margin: 0 auto;
-      position: relative;
+         max-width: 1000px;
+    margin: 2em auto;
+    padding: 0 6em;
+
+     .video-wrapper{
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+     ::v-deep iframe{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: $border-small;
+    }
+
+
+     
 
         .right,.left{
             position: absolute;
@@ -234,13 +257,14 @@ h1{
             transform: translate(0, -50%);
         }
         .right{
-            right: 20px;
+            right: -60px;
+            
         }
         .left{
-            left: 20px;
+            left: -60px;
         }
 
-
+    }
     }
     .small-video{
         max-width: $base-width;
@@ -330,14 +354,14 @@ h1{
 
     .container-overlay{
 
-          .big-video{
-            .video-overlay{
-                width: 85%;
-                height: 300px;
-                margin-top: 0
-            }
-            .right,.left{
-                display: none;
+        .big-video{
+            padding: 0 2em;
+
+            .video-wrapper{
+
+                .right,.left{
+                    display: none;
+                }
             }
             
         }
@@ -349,14 +373,7 @@ h1{
     .container-overlay{
             i{
             font-size: 1.3em;
-        }
-            .big-video{
-                .video-overlay{
-                    height: 200px;
-                }   
-        }
-
-        
+        }  
     }
 }
 

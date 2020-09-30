@@ -1,7 +1,10 @@
 <template>
+<div class="wrapper">
     <div v-show="trailer" class="game-video">
-         <iframe class="frame" width="1140" height="550" src=""  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+         <iframe class="frame"  src=""  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
+</div>
+    
     
 </template>
 
@@ -63,24 +66,35 @@
 
 <style lang="scss" scoped>
 
+.wrapper{
+    max-width: 1000px;
+    margin: 2em auto;
+    padding: 0 2em;
+    
+}
+
 .game-video{
-    margin: 0 auto;
-    max-width: $base-width;
-    display: flex;
-    justify-content: center;
-    padding: 3em;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
 
    ::v-deep iframe{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         border-radius: $border-small;
     }
 }
 
-@media (max-width: 650px){
-    .game-video{
-        ::v-deep iframe{
-            height: 250px;
-        }
-    }
-}
+// @media (max-width: 650px){
+//     .game-video{
+//         ::v-deep iframe{
+//             height: 250px;
+//         }
+//     }
+// }
 
 </style>

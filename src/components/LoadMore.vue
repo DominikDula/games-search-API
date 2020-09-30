@@ -15,11 +15,11 @@
         methods: {
             showNext() {
                 this.$root.$emit('shownext')
-                window.scrollTo({top: 0, behavior: 'smooth'})
+                // window.scrollTo({top: 0, behavior: 'smooth'})
             },
             showPrevious() {
                 this.$root.$emit('showprevious')
-                window.scrollTo({top: 0, behavior: 'smooth'})
+                // window.scrollTo({top: 0, behavior: 'smooth'})
             },
 
         },

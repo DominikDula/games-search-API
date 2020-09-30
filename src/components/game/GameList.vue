@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="ready">
     <h1>New and Trending</h1>
     
     <!-- <div class="grid-container"> -->
@@ -25,6 +25,7 @@ import LoadMore from '@/components/LoadMore.vue';
                 results:'',
                 pagesize: 1,
                 next:'',
+                ready:'',
       
             }
         },
@@ -52,12 +53,15 @@ import LoadMore from '@/components/LoadMore.vue';
                 this.pagesize -= 1
                 this.getTrendingGame()
             })
+
         },
      
         methods: {
 
             async getTrendingGame() {
-
+                this.$root.$emit('loader',true)
+                this.ready = false
+                try{
             let response = await fetch(`https://rawg.io/api/games/lists/main?page=${this.pagesize}`);
             let data = await response.json()
             //Api returns duplicate results,filter duplicate
@@ -69,6 +73,15 @@ import LoadMore from '@/components/LoadMore.vue';
                     return unique;
             },[])
             this.next = data.next
+            this.$root.$emit('loader',false) 
+            this.ready = true 
+                  
+                }
+                catch(error){
+                    console.log(error)
+                }
+
+
 
         // console.log(data);
 

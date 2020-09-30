@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="ready">
     <div class="grid-container">
         <template-list v-for="item in results" :key="item.id" :item="item" />
     </div>
@@ -15,13 +15,14 @@ import LoadMore from '@/components/LoadMore.vue';
             return {
                 results:'',
                 pagesize:1,
-                next:''
+                next:'',
+                ready:'',
 
             }
         },
         components: {
             TemplateList,
-            LoadMore
+            LoadMore,
         },
         created () {
             this.getAllDevelopers();
@@ -50,12 +51,16 @@ import LoadMore from '@/components/LoadMore.vue';
         methods: {
 
             async getAllDevelopers() {
+                this.$root.$emit('loader',true)
+                this.ready = false
+
                 try{
                     let response = await fetch(`https://api.rawg.io/api/developers?page_size=20&page=${this.pagesize}`);
                     let data = await response.json()
                     this.results = data.results
                     this.next = data.next
-                    // console.log(data);
+                    this.$root.$emit('loader',false)
+                    this.ready = true
                 }
                 catch(error){
                     this.$router.push({name: '404Page'})

@@ -56,11 +56,13 @@ import LoadMore from '@/components/LoadMore.vue';
         methods: {
 
             async getAllGame() {
+                this.$root.$emit('loader',true)
                 try{
                     let response = await fetch(`https://rawg.io/api/games?search=${this.query}&page=${this.pagesize}`);
                     let data = await response.json()
                     this.results = data.results
                     this.next = data.next
+                    this.$root.$emit('loader',false)
                     // console.log(data.results);
                 }
                 catch(error){

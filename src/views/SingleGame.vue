@@ -161,6 +161,7 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
         methods: {
 
             async getSingleGame() {
+                this.$root.$emit('loader',true)
 
                 try {
                     let response = await fetch(`https://rawg.io/api/games/${this.slug}`);
@@ -170,6 +171,7 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
                     this.shortabout = data.description.substring(0,550)
                     this.longabout = data.description
                     this.releasDate = data.released.split('-').reverse().join('.')
+                    this.$root.$emit('loader',false)
                     }
                 catch (error) {
                      this.$router.push({name: '404Page'})

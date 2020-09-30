@@ -1,5 +1,5 @@
 <template>
-    <div class="grid-container">
+    <div v-if="ready" class="grid-container">
         <template-list v-for="item in results" :key="item.id" :item="item" />
     </div>
 </template>
@@ -10,6 +10,7 @@ import TemplateList from '@/components/TemplateList.vue';
         data() {
             return {
                 results:'',
+                ready:'',
             }
         },
         components: {
@@ -23,11 +24,14 @@ import TemplateList from '@/components/TemplateList.vue';
         methods: {
 
             async getGenres() {
+                this.$root.$emit('loader',true)
+                this.ready = false
                 try{
                     let response = await fetch(`https://api.rawg.io/api/genres`);
                     let data = await response.json()
                     this.results = data.results
-                    // console.log(data);
+                    this.$root.$emit('loader',false)
+                    this.ready = true
                 }
                 catch(error){
                     this.$router.push({name: '404Page'})

@@ -1,5 +1,5 @@
 <template>
-    <div class="footer" >
+    <div v-if="!ready" class="footer" >
         <div class="project-info">
             <div class="database">
             <p>Database and design inspiration</p>
@@ -23,8 +23,13 @@
     export default {
         data() {
             return {
-                
+                ready:''
             }
+        },
+        mounted () {
+            this.$root.$on('loader',  data => {
+                this.ready = data
+            })
         },
     }
 </script>

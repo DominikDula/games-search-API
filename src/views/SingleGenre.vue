@@ -62,13 +62,14 @@ import LoadMore from '@/components/LoadMore.vue';
         },
         methods: {
             async getSingleGenre() {
+                this.$root.$emit('loader',true)
 
                 try{
                     let response = await fetch(`https://api.rawg.io/api/games?genres=${this.slug}&page=${this.pagesize}`);
                     let data = await response.json()
                     this.results = data
                     this.next = data.next
-                    console.log(data);
+                    this.$root.$emit('loader',false)
                 }
                 catch(error){
                     this.$router.push({name: '404Page'})

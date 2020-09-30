@@ -1,6 +1,6 @@
 <template>
-<div>
-    <div class="creator-container">
+<div v-if="ready">
+    <div  class="creator-container">
         <creators-list v-for="item in results" :key="item.id" :item="item" />
     </div>
     <load-more class="bottom"></load-more>
@@ -17,7 +17,8 @@ import LoadMore from '@/components/LoadMore.vue';
             return {
                 results:'',
                 pagesize:1,
-                next:''
+                next:'',
+                ready:'',
             }
         },
         components: {
@@ -46,11 +47,15 @@ import LoadMore from '@/components/LoadMore.vue';
         },
         methods: {
            async GetCreators() {
+               this.$root.$emit('loader',true)
+               this.ready = false
                 try{
                     let response = await fetch(`https://api.rawg.io/api/creators?page_size=20&page=${this.pagesize}`)
                     let data = await response.json()
                     this.results = data.results
                     this.next = data.next
+                    this.$root.$emit('loader',false)
+                    this.ready = true
                 }
                 catch(error){
                     this.$router.push({name: '404Page'})

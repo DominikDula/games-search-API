@@ -1,14 +1,14 @@
 <template>
-<div>
+<div v-if="ready">
     <div class="filters">
-        <select @change="getAllGame()" v-model="selected" name="" id="">
+        <select @change="filterGame()" v-model="selected" name="" id="">
             <option v-if="!selected" value="">Select Year</option>
             <option class="clear" v-if="selected" value="">Clear</option>
             <option v-for="(year,index) in YearGenerator" :key="index+1" :value=" year.join()">
                 {{year[0]}}
             </option>   
         </select>
-        <select @change="getAllGame()" v-model='platformOption'  name="" id="">
+        <select @change="filterGame()" v-model='platformOption'  name="" id="">
             <option v-if="!platformOption" value="">Select Platform</option>
             <option class="clear" v-if="platformOption" value="">Clear</option>
             <option v-for="(platform,index) in PlatformGenerator" :key="index+1" :value=" [platform.id,platform.name]">
@@ -38,7 +38,8 @@ import LoadMore from '@/components/LoadMore.vue';
                 next:'',
                 selected:'',
                 PlatformGenerator:[],
-                platformOption:''
+                platformOption:'',
+                ready:'',
             }
         },
         components: {
@@ -87,12 +88,15 @@ import LoadMore from '@/components/LoadMore.vue';
         methods: {
 
             async getAllGame() {
-
+                this.$root.$emit('loader',true)
+                this.ready = false
                 try {
                      let response = await fetch(`https://rawg.io/api/games?&page=${this.pagesize}&dates=${this.selected}&platforms=${this.platformOption[0] || '4'}`);
                     let data = await response.json()
                     this.results = data.results
                     this.next = data.next
+                    this.$root.$emit('loader',false)
+                    this.ready = true
                     }
                 catch (error) {
                     console.log(error);
@@ -106,9 +110,10 @@ import LoadMore from '@/components/LoadMore.vue';
                     });
 
             },
-            changeRout() {
-                this.$router.push({path:'/platforms' + '/' + this.platformOption })
-            },
+            filterGame(){
+                this.pagesize = 1
+                this.getAllGame()
+            }
         }
             
         
@@ -117,6 +122,7 @@ import LoadMore from '@/components/LoadMore.vue';
 
 
 <style lang="scss" scoped>
+
 
 .filters{
     display: flex;
