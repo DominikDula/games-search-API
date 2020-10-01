@@ -6,7 +6,7 @@
     <transition name="smooth" mode="out-in">
         <router-view :key="$route.path" />
     </transition>
-    <the-footer  />
+    <the-footer v-if="!loader"  />
   </div>
 </template>
 

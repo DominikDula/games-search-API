@@ -60,7 +60,7 @@
                             <span v-if="item.released">{{ReleaseDate}}</span></li>
                         <li>
                             <span class="span-title">Genres: </span> 
-                            <span> 
+                            <span class="genre"> 
                                 <router-link :to="{name:'SingleGenre',params:{slug:genre.slug,name:genre.name}}" 
                                 v-for="genre in item.genres.slice(0,3)" 
                                 :key="genre.id">
@@ -93,6 +93,13 @@
             }
         },
         props:['item'],
+        updated () {
+            //remove last coma from genres//
+            if(this.isHidden){
+                let genre = document.querySelector(".genre")
+                genre.lastChild.textContent = genre.lastChild.textContent.replace(',',' ')
+            }    
+        },
   
         
         methods: {
@@ -164,13 +171,7 @@
                   this.showIcon = true
                 
             
-            },
-
-         
-            
-            
-
-            
+            },     
             
         },
         computed: {
@@ -189,9 +190,7 @@
             },
             ReleaseDate(){
                 return this.item.released.split('-').reverse().join('.')
-            }
-           
-            
+            }, 
 			
         },
 

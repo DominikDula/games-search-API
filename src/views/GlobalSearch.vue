@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="ready">
     <h1>Results for '{{query}}'</h1>
      <div class="grid-container">
         <game-info v-for="item in results" :key="item.id" :item="item" />
@@ -18,6 +18,7 @@ import LoadMore from '@/components/LoadMore.vue';
                 results:'',
                 pagesize: 1,
                 next:'',
+                ready:'',
             }
         },
          props: {
@@ -57,13 +58,14 @@ import LoadMore from '@/components/LoadMore.vue';
 
             async getAllGame() {
                 this.$root.$emit('loader',true)
+                this.ready = false
                 try{
                     let response = await fetch(`https://rawg.io/api/games?search=${this.query}&page=${this.pagesize}`);
                     let data = await response.json()
                     this.results = data.results
                     this.next = data.next
                     this.$root.$emit('loader',false)
-                    // console.log(data.results);
+                    this.ready = true
                 }
                 catch(error){
                     this.$router.push({name: '404Page'})
