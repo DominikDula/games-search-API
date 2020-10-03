@@ -24,25 +24,9 @@
             },
         },
         created () {
-            // this.GetGameVideo()
             this.getVideoTrailer()
         },
         methods: {
-
-            // async GetGameVideo() {
-             
-            // let response = await fetch(`https://api.rawg.io/api/games/${this.slug}/youtube`);
-            // let data = await response.json()
-            // if(data.results.length<1){
-            //     return
-            // }else{
-            //     this.results = data.results[1].external_id
-            // }
-            // let url = document.querySelector('.frame');
-            // url.src = `https://www.youtube.com/embed/${this.trailer || this.results}`
-
-              
-            // },
             async getVideoTrailer() {
 
             let response = await fetch(`https://rawg.io/api/games/${this.slug}`);
@@ -58,9 +42,7 @@
         },
  
     
-  
-
-        
+    
     }
 </script>
 
@@ -89,12 +71,5 @@
     }
 }
 
-// @media (max-width: 650px){
-//     .game-video{
-//         ::v-deep iframe{
-//             height: 250px;
-//         }
-//     }
-// }
 
 </style>

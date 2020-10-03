@@ -1,7 +1,7 @@
 <template>
 <div v-if="results.length>0" >
     <h1>Youtube Videos</h1>
-    <div v-for="(video,index) in results" :key="index+1" @click="ShowVideo($event,video);ShowNext(index)" class="video-grid">
+    <div v-for="(video,index) in results" :key="index+1" @click="ShowVideo(index,video)" class="video-grid">
 
         <div class="video-image">
             <img :src="video.thumbnails.sddefault.url"> 
@@ -32,7 +32,7 @@
                 
                 <div class="small-video">
                     <img class="video-overlay" 
-                    @click="ShowVideo($event,video);ShowNext(index)"   
+                    @click="ShowVideo(index,video)"   
                     v-for="(video,index) in results" 
                     :key="index+1" 
                     :src="video.thumbnails.sddefault.url">
@@ -82,8 +82,9 @@
            
                 
             },
-            ShowVideo(event,video){
+            ShowVideo(index,video){
                 this.singleVideo = video.external_id
+                this.videoIndex = index
                 document.documentElement.style = 'overflow:hidden;'
 
                 
@@ -96,10 +97,6 @@
                 }
                 this.singleVideo = ''
                 document.documentElement.style = 'overflow:visible;'
-                
-            },
-            ShowNext(index){
-                this.videoIndex = index
                 
             },
             IncreaseIndex(){

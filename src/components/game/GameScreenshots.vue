@@ -2,7 +2,7 @@
 <div >
     <h1>Gallery</h1>
     <div  class="image-grid">
-        <img @click="ShowImage($event);ShowNext(index)"   v-for="(image,index) in results" :key="image.id" :src="image.image">
+        <img @click="ShowImage(index)" v-for="(image,index) in results" :key="image.id" :src="image.image">
     </div>
    <transition name="fade"> 
         <div @click="HideImage" v-if="singleImage" class="container-overlay">
@@ -17,7 +17,7 @@
                 
                 <div class="small-images">
                     <img class="image-overlay" 
-                    @click="ShowImage($event);ShowNext(index)"   
+                    @click="ShowImage(index)"   
                     v-for="(image,index) in results" 
                     :key="image.id" 
                     :src="image.image">
@@ -34,7 +34,7 @@
         data() {
             return {
                 results:'',
-                singleImage:'',
+                singleImage:false,
                 imgIndex:'',
                 imgArray:[],
             }
@@ -63,8 +63,9 @@
            
                 
             },
-            ShowImage(event){
-                this.singleImage = event.target.src
+            ShowImage(index){
+                this.singleImage = true
+                this.imgIndex = index
                 document.documentElement.style = 'overflow:hidden;'
 
                 
@@ -75,12 +76,9 @@
                  || event.target.className === 'fas fa-angle-right right' ){
                     return false
                 }
-                this.singleImage = ''
+                this.singleImage = false
                 document.documentElement.style = 'overflow:visible;'
                 
-            },
-            ShowNext(index){
-                this.imgIndex = index
             },
             IncreaseIndex(){
                 if(this.imgIndex >= this.imgArray.length-1){

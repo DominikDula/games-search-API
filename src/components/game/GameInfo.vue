@@ -94,11 +94,14 @@
         },
         props:['item'],
         updated () {
+            if(this.item.genres.length <=0){
+                return false
+            }
             //remove last coma from genres//
-            if(this.isHidden){
+            else if(this.isHidden){
                 let genre = document.querySelector(".genre")
                 genre.lastChild.textContent = genre.lastChild.textContent.replace(',',' ')
-            }    
+            }   
         },
   
         

@@ -185,7 +185,6 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
                 let response = await fetch(`https://api.rawg.io/api/games/${this.slug}/development-team`);
                 let data = await response.json();
                 this.creators = data.results
-                console.log(data.results);
             },
             ReadMore(){
                 this.about =this.longabout

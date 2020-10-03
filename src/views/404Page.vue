@@ -27,7 +27,7 @@
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
-    z-index: 1;
+    z-index: 6;
     top: 0;
     overflow: hidden;
 }

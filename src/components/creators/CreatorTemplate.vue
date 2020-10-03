@@ -49,7 +49,7 @@
 article{
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     max-width: $base-width;
     margin: 0 auto;
     line-height: 1.3;
