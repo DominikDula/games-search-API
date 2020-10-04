@@ -3,7 +3,7 @@
         <div @mouseenter="ShowOnHover()" @mouseleave="ShowOnHover()"  class="game-holder">
             <div @mouseenter="PlayVideo" @mouseleave="StopVideo"  class="game-info" >
 
-                    <div  class="game-img" >
+                    <div @click="RouterPush()"  class="game-img" >
                         <img :src="item.background_image" alt="">
                     </div>
 
@@ -14,7 +14,7 @@
                     </div>
 
                     <div @click="PlayClickVideo"  class="game-video">
-                        <video class="videos"  v-if="item.clip"  loop  muted >
+                        <video @click="RouterPush()" class="videos"  v-if="item.clip"  loop  muted >
                             <source :src="item.clip.clips['640']" type="video/mp4">
                         </video>
                     </div>
@@ -27,6 +27,7 @@
                     <div v-if="!item.clip && item.short_screenshots.length>0" class="screenshots" >
                         <img @mouseenter="ImageAnimation()"
                             @mouseleave="StopImageAnimation()" 
+                            @click="RouterPush()"
                             :src="item.short_screenshots[iterator].image" alt="">
                     </div>
                    
@@ -174,7 +175,13 @@
                   this.showIcon = true
                 
             
-            },     
+            },   
+            RouterPush(){
+                if(window.innerWidth<665){
+                    return false
+                }                
+                this.$router.push({ name: 'SingleGame', params:{slug:this.item.slug}})
+            }  
             
         },
         computed: {
@@ -213,7 +220,6 @@
     background-color: $secondary-bg;
     position: relative;
     border-radius: $border-medium;
-    // transition: 0.2s ease-in;
     .platform-img  {
         display: flex;
         position: absolute;
@@ -238,7 +244,6 @@
     }
 
     .screenshots img{
-        // display: none;
             width: 100%;
             height: 250px;
             position: absolute;
@@ -246,6 +251,7 @@
             left: 0;
             object-fit: cover;
             border-radius: 10px 10px 0 0;
+            cursor: pointer;
         }
     .metacritic{
         width: 38px;
@@ -288,6 +294,7 @@
     .game-img{
         height: 250px;
         display: flex;
+        cursor: pointer;
         img{
             width: 100%;
             object-fit: cover;
@@ -313,6 +320,7 @@
         position: absolute;
         top: 0;
         opacity: 0;
+        cursor: pointer;
         video{
             object-fit: cover;
             width: 100%;

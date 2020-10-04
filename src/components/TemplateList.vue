@@ -82,7 +82,6 @@
     }
 
     .item-desc{
-        // margin-top: 3em;
         display: flex;
         padding: 0 2em 1em;
         flex-direction: column;

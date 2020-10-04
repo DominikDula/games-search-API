@@ -34,7 +34,7 @@
 .footer{
     width: 100%;
     height: 200px;
-    background: rgb(27, 25, 25);
+    background-color: darken($primary-bg,5%);
 }
 
 .project-info{

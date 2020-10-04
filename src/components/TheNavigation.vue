@@ -72,7 +72,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $primary-bg;
+    background-color: darken($primary-bg,5%);
     opacity: 1;
   
     a {
@@ -96,8 +96,8 @@
 
     i{
         position: absolute;
-        top: 25px;
-        right: 25px;
+        top: 15px;
+        right: 20px;
         font-size: 2em;
         cursor: pointer;
         z-index: 2;
@@ -113,8 +113,12 @@
     .hamburger{
         display: block;
         width: 100%;
-        height: 30px;
+        height: 60px;
         opacity: 1;
+        position: absolute;
+        top: 0;
+        z-index: 3;
+        background-color: darken($primary-bg,5%);
 
     }
     

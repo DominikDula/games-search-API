@@ -49,7 +49,6 @@ import GameInfo from '@/components/game/GameInfo.vue';
             let response = await fetch(`https://api.rawg.io/api/games/${this.slug}/suggested?page_size=${this.pageSize}&page=${this.page}`);
             let data = await response.json()
             this.results = data.results
-            // console.log(data);
             },
             showNext() {
                 if(this.next === null){

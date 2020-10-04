@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="ready">
         <single-template :info="info" />
         <div class="grid-container">
             <game-info v-for="item in results.results" :key="item.id" :item="item" />
@@ -20,6 +20,7 @@ import LoadMore from '@/components/LoadMore.vue';
                 info:'',
                 pagesize:1,
                 next:'',
+                ready:'',
 
             }
         },
@@ -55,24 +56,24 @@ import LoadMore from '@/components/LoadMore.vue';
    
         props: {
             id: {
-                // type: String,
                 required:true 
             },
         },
         methods: {
             async getSinglePlatform() {
                 this.$root.$emit('loader',true)
+                this.ready = false
                 try{
                     let response = await fetch(`https://api.rawg.io/api/games?platforms=${this.id}&page=${this.pagesize}`);
                     let data = await response.json()
                     this.results = data
                     this.next = data.next
                     this.$root.$emit('loader',false)
+                    this.ready = true
                 }
                 catch(error){
                     this.$router.push({name: '404Page'})
                 }
-
 
             
             },
@@ -87,9 +88,6 @@ import LoadMore from '@/components/LoadMore.vue';
             
             },
 
-
-
- 
         },
         
     }

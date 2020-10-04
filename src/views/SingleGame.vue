@@ -1,10 +1,7 @@
 <template>
     <div>
-        <div class="bg-image" v-bind:style="{ backgroundImage: 'url(' + results.background_image + ')' }">
-            <!-- <video class="videos"  v-if="results.clip"  loop  muted autoplay >
-                    <source :src="results.clip.clips['full']" type="video/mp4" >
-            </video> -->
-        </div>
+        <div class="bg-image" v-bind:style="{ backgroundImage: 'url(' + results.background_image + ')' }"></div>
+        
         <div class="single-game-name">
             <h1>{{results.name}}</h1>
         </div>
@@ -28,8 +25,6 @@
                         </router-link>
                     </section>  
 
-                    <!-- <p>Developers:<a v-for="developer in results.developers" :key="developer.id" href="#">{{ developer.name }}</a></p> -->
-
                     <section>
                         <h3>Developers</h3>
                         <router-link 
@@ -40,7 +35,6 @@
                         </router-link>
                     </section>
 
-
                     <section>
                         <h3>Platforms</h3>
                         <router-link 
@@ -50,6 +44,7 @@
                         {{ platform.platform.name }}
                         </router-link>
                     </section>
+
                     <section>
                         <h3>Tags</h3>
                         <router-link 
@@ -59,6 +54,7 @@
                         {{ tag.name }}
                         </router-link>
                     </section>
+
                     <section>
                         <h3>Metacritic Score</h3>
                         <span v-if="results.metacritic" 
@@ -68,6 +64,7 @@
                             {{results.metacritic}}%
                         </span>
                     </section>
+
                     <section>
                         <h3>Metacritic website</h3>
                         <a target="_blank" v-if="results.metacritic_url" :href="results.metacritic_url">{{results.metacritic_url}}</a>
@@ -187,12 +184,12 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
                 this.creators = data.results
             },
             ReadMore(){
-                this.about =this.longabout
-                this.boolean=false
+                this.about = this.longabout
+                this.boolean = false
             },
             ReadLess(){
               this.about = this.shortabout +'...'
-              this.boolean=true
+              this.boolean = true
             },
 
 
@@ -233,11 +230,6 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
         object-fit: cover;
 
     }
-    .videos{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
 }
 .bg-image::after{
     content: '';
@@ -268,7 +260,6 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
     display: flex;
     margin: 150px auto;
     background: #201d21ab;
-    // flex-direction: column;
     justify-content: center;
     border-radius: $border-small;
     padding: 50px;
@@ -282,8 +273,6 @@ import CreatorsList from '@/components/creators/CreatorsList.vue';
             top: 10px;
             left: 50px;
         }
-
-
 
 }
 
@@ -330,9 +319,6 @@ span{
     z-index: 1;
     width: 50%;
 
-
-// 
- 
 }
 
 .single-game-detail{
@@ -372,7 +358,6 @@ span{
 .stores-div{
     max-width: $base-width;
     margin: 0 auto;
-    // background: rgb(41, 41, 41);
 
     .stores-container{
         display: flex;
@@ -382,7 +367,6 @@ span{
 
     .stores{
         width: 50%;
-        // background: red;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
@@ -401,8 +385,6 @@ span{
         border-radius: $border-small;
         overflow: hidden;
         
-   
-
         a{
             color: white;
             padding: 0.5em;
@@ -411,8 +393,7 @@ span{
             background: #ff0000b0;
         }
 
-    
-        
+       
     }
 
     .single-store::after{
@@ -471,7 +452,6 @@ span{
 
 
         
-
 @media (max-width: 860px){
     .bg-image{
         height: 600px;
@@ -520,12 +500,5 @@ span{
     }
     
 }
-
-
-
-   
-    
-
-
 
 </style>

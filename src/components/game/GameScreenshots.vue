@@ -138,7 +138,6 @@ h1{
     grid-gap: 25px;
     padding: 3em;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    // grid-auto-rows: minmax(300px, auto);
 
     img{
         width: 100%;
