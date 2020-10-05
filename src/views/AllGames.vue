@@ -1,20 +1,20 @@
 <template>
 <div v-if="ready">
     <div class="filters">
-        <select @change="filterGame()" v-model="selected" name="" id="">
+        <select @change="filterGame()" v-model="selected" name="" id="year">
             <option v-if="!selected" value="">Select Year</option>
-            <option class="clear" v-if="selected" value="">Clear</option>
             <option v-for="(year,index) in YearGenerator" :key="index+1" :value=" year.join()">
                 {{year[0]}}
             </option>   
         </select>
-        <select @change="filterGame()" v-model='platformOption'  name="" id="">
+        <button class="clear" @click="yearReset()" v-if="selected">x</button>
+        <select @change="filterGame()" v-model='platformOption'  name="" id="platform">
             <option v-if="!platformOption" value="">Select Platform</option>
-            <option class="clear" v-if="platformOption" value="">Clear</option>
             <option v-for="(platform,index) in PlatformGenerator" :key="index+1" :value=" [platform.id,platform.name]">
                 {{platform.name}}
             </option>
         </select>
+        <button class="clear" @click="platformReset()"  v-if="platformOption">x</button>
     </div>
       <h1  v-if="selected && !platformOption">Best games in {{selected.slice(0,4)}}</h1>
       <h1  v-if="platformOption && !selected">Best games of {{platformOption[1]}}</h1>
@@ -113,7 +113,15 @@ import LoadMore from '@/components/LoadMore.vue';
             filterGame(){
                 this.pagesize = 1
                 this.getAllGame()
-            }
+            },
+            yearReset(){
+            this.selected = ''
+            this.getAllGame()
+            },
+            platformReset(){
+            this.platformOption = ''
+            this.getAllGame()
+            },
         }
             
         
@@ -129,6 +137,7 @@ import LoadMore from '@/components/LoadMore.vue';
     justify-content: center;
     max-width: $base-width;
     margin: 2em auto 0;
+    align-items: center;
 
 
 
@@ -147,8 +156,18 @@ import LoadMore from '@/components/LoadMore.vue';
    
 }
 .clear{
-    background: white;
-    color: red;
+    background: red;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
 }
 
 }
