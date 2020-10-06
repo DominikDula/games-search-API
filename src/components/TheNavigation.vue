@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="nav-container">
     <div @click="NavClick" id="nav" class=" navigation" :class="{ 'navigation': isActive, 'navigation-show': isNotActive }">
         <router-link to="/">Home</router-link>
         <router-link to="/developers">Developers</router-link>
@@ -66,24 +66,29 @@
 
 <style lang="scss" scoped>
 
+.nav-container{
+    max-width: $base-width;
+    margin: 0 auto;
+}
+
 .navigation {
     width: 100%;
     height: 70px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    background-color: darken($primary-bg,5%);
     opacity: 1;
   
     a {
         font-size: 1.2em;
-        margin: 0 0.3em;
-        font-weight: bold;
+        margin: 0 0.8em;
+        font-weight: 500;
         color: #fff;
         text-decoration: none;
   
       &.router-link-exact-active {
         color:yellow;
+        font-weight: bold;
       }
       &:hover {
         color:rgba(255, 255, 0, 0.651);
@@ -109,7 +114,7 @@
 
 
 
-@media( max-width:600px) {
+@media( max-width:980px) {
     .hamburger{
         display: block;
         width: 100%;
@@ -118,11 +123,11 @@
         position: absolute;
         top: 0;
         z-index: 3;
-        background-color: darken($primary-bg,5%);
 
     }
     
     .navigation{
+        justify-content: center;
         opacity: 0;
         display: flex;
         flex-direction: column;
@@ -144,7 +149,7 @@
         transition: 0.5s ease-in-out;
         
         a{
-            padding: 1.5em 0;
+            padding: 0.9em 0;
         }
     }
 }

@@ -187,6 +187,7 @@ h1{
 
 @media (max-width: 655px) { 
     .filters{
+        padding: 0 1em;
 
         select{
         padding: 8px;
@@ -199,6 +200,7 @@ h1{
 
    h1{
         font-size: 1.3em;
+        padding: 0 1em
     }
     
 }

@@ -2,6 +2,7 @@
   <div  id="app" >
     <loader-spinner v-if="loader" />
     <the-navigation  />
+    <the-logo />
     <search-game  />
     <transition name="smooth" mode="out-in">
         <router-view :key="$route.path" />
@@ -15,6 +16,7 @@ import SearchGame from '@/components/game/SearchGame.vue'  ;
 import TheNavigation from '@/components/TheNavigation.vue'  ;
 import TheFooter from '@/components/TheFooter.vue'  ;
 import LoaderSpinner from '@/components/LoaderSpinner.vue';
+import TheLogo from '@/components/TheLogo.vue'  ;
 
 
     export default {
@@ -28,6 +30,7 @@ import LoaderSpinner from '@/components/LoaderSpinner.vue';
             TheNavigation,
             TheFooter,
             LoaderSpinner,
+            TheLogo,
 
         },
         mounted () {

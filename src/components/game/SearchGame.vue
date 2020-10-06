@@ -226,7 +226,6 @@ import { debounce } from 'lodash-es'
 
 @media( max-width:600px) {
     .search{
-        margin: 0 auto 0;
         width: 80%;
     }
     .autosearch{
