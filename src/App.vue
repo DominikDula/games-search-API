@@ -8,6 +8,7 @@
         <router-view :key="$route.path" />
     </transition>
     <the-footer v-if="!loader"  />
+    <scroll-top />
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import TheNavigation from '@/components/TheNavigation.vue'  ;
 import TheFooter from '@/components/TheFooter.vue'  ;
 import LoaderSpinner from '@/components/LoaderSpinner.vue';
 import TheLogo from '@/components/TheLogo.vue'  ;
+import ScrollTop from '@/components/ScrollTop.vue'  ;
 
 
     export default {
@@ -31,6 +33,7 @@ import TheLogo from '@/components/TheLogo.vue'  ;
             TheFooter,
             LoaderSpinner,
             TheLogo,
+            ScrollTop,
 
         },
         mounted () {
