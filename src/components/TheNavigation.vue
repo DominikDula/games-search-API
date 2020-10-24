@@ -143,7 +143,7 @@
         position: absolute;
         top: 0;
         background: rgba(0, 0, 0, 0.9);
-        z-index: 2;
+        z-index: 3;
         opacity: 1;
         transform: translateY(0);
         transition: 0.5s ease-in-out;
