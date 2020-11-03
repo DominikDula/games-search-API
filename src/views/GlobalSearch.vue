@@ -1,11 +1,10 @@
 <template>
 <div v-if="ready">
-    <h1>New and Trending</h1>
-    <div class="grid-container">
-        <game-info v-for="item in results" :key="item.id" :item="item" />  
-    </div>    
-    
-   <load-more class="bottom"></load-more>
+    <h1>Results for '{{query}}'</h1>
+     <div class="grid-container">
+        <game-info v-for="item in results" :key="item.id" :item="item" />
+    </div>
+    <load-more class="bottom"></load-more>
 </div>
     
 </template>
@@ -13,7 +12,6 @@
 <script>
 import GameInfo from '@/components/game/GameInfo.vue';
 import LoadMore from '@/components/LoadMore.vue';
-
     export default {
         data() {
             return {
@@ -21,79 +19,79 @@ import LoadMore from '@/components/LoadMore.vue';
                 pagesize: 1,
                 next:'',
                 ready:'',
-      
             }
+        },
+         props: {
+            query: {
+                type: String,
+                required:true 
+            },
         },
         components: {
             GameInfo,
             LoadMore,
         },
         created () {
-            this.getTrendingGame();
-            
+            this.getAllGame();
 
+    
         },
         mounted () {
-            this.$root.$on('shownext', () => {
-                if(this.next === null){
+             this.$root.$on('shownext', () => {
+                 if(this.next === null){
                      return
                  }
                 this.pagesize += 1
-                this.getTrendingGame()
+                this.getAllGame()
             }),
              this.$root.$on('showprevious', () => {
                  if(this.pagesize<=1){
                      return
                  }
                 this.pagesize -= 1
-                this.getTrendingGame()
+                this.getAllGame()
             })
-
         },
-     
+    
+
         methods: {
 
-            async getTrendingGame() {
+            async getAllGame() {
                 this.$root.$emit('loader',true)
                 this.ready = false
                 try{
-            let response = await fetch(`https://rawg.io/api/games/lists/main?page=${this.pagesize}`);
-            let data = await response.json()
-            //Api returns duplicate results,filter duplicate
-            this.results = data.results.reduce((unique, o) => {
-                if(!unique.some(obj => obj.slug === o.slug )) {
-                    unique.push(o);
-                }
-    
-                    return unique;
-            },[])
-            this.next = data.next
-            this.$root.$emit('loader',false) 
-            this.ready = true 
-                  
+                    let response = await fetch(`https://rawg.io/api/games?search=${this.query}&page=${this.pagesize}`);
+                    let data = await response.json()
+                    this.results = data.results
+                    this.next = data.next
+                    this.$root.$emit('loader',false)
+                    this.ready = true
                 }
                 catch(error){
-                    console.log(error)
+                    this.$router.push({name: '404Page'})
                 }
 
+            
+
+
             },
-       
             
         },
-
- 
-        
-        
     }
 </script>
+
 
 <style lang="scss" scoped>
 
 h1{
     max-width: $base-width;
-    margin: 70px auto 0;
     display: flex;
     justify-content: center;
+    margin: 2em auto 0;
+
+    span{
+        color:rgb(194, 0, 0);
+    }
 }
 
 .bottom{
@@ -102,13 +100,10 @@ h1{
 
 @media (max-width: 655px) { 
     
-    h1{
+   h1{
         font-size: 1.3em;
     }
     
 }
-
-
-
 
 </style>

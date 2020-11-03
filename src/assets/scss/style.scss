@@ -1,0 +1,84 @@
+@import 'variables';
+
+
+body{
+    background-color: $primary-bg;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+
+
+}
+
+#app{
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+
+  .smooth-enter-active, .smooth-leave-active {
+    transition: opacity 0.5s,transform 0.5s;
+  }
+  .smooth-enter, .smooth-leave-to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+  
+
+
+  .grid-container{
+    padding: 6em 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-gap: 1em;
+    grid-auto-rows: minmax(300px, auto);
+    max-width: $base-width;
+    min-height: 100vh;
+    margin: 0 auto;
+
+
+
+}
+.creator-container{
+    padding: 6em 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-gap: 1em;
+    grid-auto-rows: minmax(400px, auto);
+    max-width: $base-width;
+    min-height: 100vh;
+    margin: 0 auto;
+
+
+
+}
+.negative{
+    border: 3px solid #f00;
+    color: #f00;
+}
+.average{
+    border: 3px solid #fc3;
+    color: #fc3;
+}
+.positive{
+    border: 3px solid #6c3;
+    color: #6c3;
+}
+
+@media (max-width: 400px){
+    .grid-container,.creator-container{
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+

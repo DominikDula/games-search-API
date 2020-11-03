@@ -1,32 +1,51 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+  <div  id="app" >
+    <loader-spinner v-if="loader" />
+    <the-navigation  />
+    <the-logo />
+    <search-game  />
+    <transition name="smooth" mode="out-in">
+        <router-view :key="$route.path" />
+    </transition>
+    <the-footer v-if="!loader"  />
+    <scroll-top />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import SearchGame from '@/components/game/SearchGame.vue'  ;
+import TheNavigation from '@/components/TheNavigation.vue'  ;
+import TheFooter from '@/components/TheFooter.vue'  ;
+import LoaderSpinner from '@/components/LoaderSpinner.vue';
+import TheLogo from '@/components/TheLogo.vue'  ;
+import ScrollTop from '@/components/ScrollTop.vue'  ;
 
-#nav {
-  padding: 30px;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+    export default {
+        data() {
+            return {
+                loader:true,
+            }
+        },
+        components: {
+            SearchGame,
+            TheNavigation,
+            TheFooter,
+            LoaderSpinner,
+            TheLogo,
+            ScrollTop,
 
-    &.router-link-exact-active {
-      color: #42b983;
+        },
+        mounted () {
+            this.$root.$on('loader',  data => {
+                this.loader = data
+            })
+        },
     }
-  }
-}
-</style>
+</script>
+
+<style src="@/assets/scss/style.scss" lang="scss"></style>
+
+
+
+
